@@ -1,30 +1,35 @@
 <?php
-require_once 'config/koneksi.php';
+
 
 function process_login($post)
 {
-    if (isset($post['login'])) {
+    global $koneksi;
+
+    // Melindungi dari SQL injection
+    $email = htmlspecialchars($post['email']);
+    $password = htmlspecialchars($post['password']);
+
+    $result = $koneksi->query("SELECT * FROM admin WHERE email='$email'");
+
+    // Memeriksa jumlah baris yang ditemukan
+    $admin = $result->fetch_object();
+    // Jika email dan password cocok, set session dan kembalikan true
+    if ($admin) {
+
      
-        // Melindungi dari SQL injection
-        $email = mysqli_real_escape_string($koneksi, $email);
-        $password = mysqli_real_escape_string($koneksi, $password);
-
-        // Query untuk memeriksa kecocokan email dan password
-        $query = "SELECT * FROM admin WHERE email='$email' AND password='$password'";
-        $result = mysqli_query($koneksi, $query);
-
-        // Memeriksa jumlah baris yang ditemukan
-        $count = mysqli_num_rows($result);
-
-        // Jika email dan password cocok, set session dan kembalikan true
-        if ($count == 1) {
-            var_dump($count);die;
+        // cek password
+        if (password_verify($password,$admin->password)) {
             session_start();
+            $_SESSION['id_admin'] = $admin->id_admin;
+            $_SESSION['nama'] = $admin->nama;
             $_SESSION['email'] = $email;
+            $_SESSION['level'] = 'admin';
             return true;
-        } else {
-            // Jika email dan password tidak cocok, kembalikan false
+        }else{
             return false;
         }
+    } else {
+        // Jika email dan password tidak cocok, kembalikan false
+        return false;
     }
 }

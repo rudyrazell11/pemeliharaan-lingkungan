@@ -14,10 +14,7 @@ if ($koneksi->connect_error) {
     die('Koneksi MySQL error: ' . $koneksi->connect_error);
 }
 
-// Kode lainnya jika koneksi berhasil
-// ...
-
 // Tutup koneksi
-$koneksi->close();
+// $koneksi->close();
 
 ?>

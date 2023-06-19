@@ -1,12 +1,26 @@
 <?php
 
-require_once 'config/config.php';
-require_once 'function/auth.php';
+include 'config/config.php';
+include 'config/koneksi.php';
+include 'function/auth.php';
 
+if (isset($_POST['login'])) {
+  $proces_login = process_login($_POST);
+  if ($proces_login) {
+    header('Location: main.php');
+  } else {
+    $error = '
+      <div class="alert alert-danger">
+        Email atau password salah
+      </div>
+    ';
+  }
+}
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
@@ -24,19 +38,23 @@ require_once 'function/auth.php';
 
 <body>
   <div id="app">
-  <section class="section">
+    <section class="section">
       <div class="container mt-5">
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
               <img src="<?= BASE_URL ?>/assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
             </div>
-
+            <?php if (isset($error)) : ?>
+              <?= $error ?>
+            <?php endif; ?>
             <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
+              <div class="card-header">
+                <h4>Login</h4>
+              </div>
 
               <div class="card-body">
-                <form method="POST" action="<?= process_login($_POST) ?>" class="needs-validation" novalidate="">
+                <form method="POST" action="" class="needs-validation" novalidate="">
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
@@ -46,7 +64,7 @@ require_once 'function/auth.php';
                   </div>
 
                   <div class="form-group">
-                  <label for="password">Password</label>
+                    <label for="password">Password</label>
                     <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
                     <div class="invalid-feedback">
                       please fill in your password
@@ -86,4 +104,5 @@ require_once 'function/auth.php';
   <script src="<?= BASE_URL ?>/assets/js/custom.js"></script>
 
 </body>
+
 </html>
