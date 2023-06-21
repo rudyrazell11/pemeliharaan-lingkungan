@@ -62,6 +62,33 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     case 'periode-iuran-edit':
                         include 'pages/periode-iuran/edit.php';
                         break;
+                    case 'komplek':
+                        include 'pages/komplek/index.php';
+                        break;
+                    case 'komplek-create':
+                        include 'pages/komplek/create.php';
+                        break;
+                    case 'komplek-edit':
+                        include 'pages/komplek/edit.php';
+                        break;
+                    case 'blok':
+                        include 'pages/blok/index.php';
+                        break;
+                    case 'blok-create':
+                        include 'pages/blok/create.php';
+                        break;
+                    case 'blok-edit':
+                        include 'pages/blok/edit.php';
+                        break;
+                    case 'user':
+                        include 'pages/user/index.php';
+                        break;
+                    case 'user-create':
+                        include 'pages/user/create.php';
+                        break;
+                    case 'user-edit':
+                        include 'pages/user/edit.php';
+                        break;
                     default:
                         include 'pages/dashboard.php';
                         break;
@@ -79,7 +106,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
         </div>
     </div>
 
-    <script src="<?= BASE_URL ?>/assets/js/jquery-3.6.1.min.js"></script>
+   
     <script src="<?= BASE_URL ?>/assets/js/jquery.nicescroll.min.js"></script>
     <script src="<?= BASE_URL ?>/assets/js/moment.js"></script>
     <script src="<?= BASE_URL ?>/assets/js/popper.min.js"></script>

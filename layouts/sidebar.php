@@ -18,5 +18,14 @@
         <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/main.php?page=periode-iuran' ?>"><i class="fas fa-fire"></i>
                 <span>Periode Iuran</span></a>
         </li>
+        <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/main.php?page=komplek' ?>"><i class="fas fa-fire"></i>
+                <span>Komplek</span></a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/main.php?page=blok' ?>"><i class="fas fa-fire"></i>
+                <span>Blok</span></a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/main.php?page=user' ?>"><i class="fas fa-fire"></i>
+                <span>User</span></a>
+        </li>
     </ul>
 </aside>

@@ -11,3 +11,4 @@
 <!-- Template CSS -->
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/components.css">
+<script src="<?= BASE_URL ?>/assets/js/jquery-3.6.1.min.js"></script>

@@ -9,21 +9,19 @@ function process_login($post)
     $email = htmlspecialchars($post['email']);
     $password = htmlspecialchars($post['password']);
 
-    $result = $koneksi->query("SELECT * FROM admin WHERE email='$email'");
-
+    $result = $koneksi->query("SELECT * FROM user WHERE email='$email'");
     // Memeriksa jumlah baris yang ditemukan
-    $admin = $result->fetch_object();
+    $user = $result->fetch_object();
     // Jika email dan password cocok, set session dan kembalikan true
-    if ($admin) {
-
-     
+    if ($user) {
+        
         // cek password
-        if (password_verify($password,$admin->password)) {
+        if (password_verify($password,$user->password)) {
             session_start();
-            $_SESSION['id_admin'] = $admin->id_admin;
-            $_SESSION['nama'] = $admin->nama;
-            $_SESSION['email'] = $email;
-            $_SESSION['level'] = 'admin';
+            $_SESSION['id_user'] = $user->id_user;
+            $_SESSION['nama'] = $user->nama;
+            $_SESSION['email'] = $user->email;
+            $_SESSION['level'] = $user->level;
             return true;
         }else{
             return false;
