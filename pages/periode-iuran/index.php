@@ -6,7 +6,7 @@ require_once 'function/helper.php';
 $items = get();
 if (isset($_POST['delete'])) {
     $delete = deleteData($_POST['id_periode_iuran']);
-    header('Location: ' . BASE_URL . '/main.php?page=periode-iuran&status=success');
+   redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success');
 }
 
 ?>

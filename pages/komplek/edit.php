@@ -6,18 +6,18 @@ $id_komplek = $_GET['id_komplek'];
 
 $item = getById($id_komplek);
 
-if(!$item)
-    header('Location: ' . BASE_URL. '/main.php?page=komplek');
+if (!$item)
+    redirectUrl(BASE_URL . '/main.php?page=komplek');
 
 if (isset($_POST['update'])) {
-   
+
     $update = updateData($_POST);
     if ($update) {
-        header('Location: ' . BASE_URL . '/main.php?page=komplek&status=success');
+        redirectUrl(BASE_URL . '/main.php?page=komplek&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">
-      Gagal di update.
+        Komplek Gagal di update.
         </div>
       ';
     }
@@ -49,7 +49,7 @@ if (isset($_POST['update'])) {
                                 <label for="nama_komplek">Nama Komplek</label>
                                 <input type="text" class="form-control" name="nama_komplek" value="<?= $item['nama_komplek'] ?>" id="nama_komplek">
                             </div>
-                         
+
                             <div class="form-group">
                                 <button name="update" class="btn btn-block btn-primary"><i class="fas fa-save"></i>
                                     Update</button>

@@ -3,10 +3,9 @@
 require_once 'function/models/user.php';
 
 $items = get();
-
 if (isset($_POST['delete'])) {
     $delete = deleteData($_POST['id_user']);
-    header('Location: ' . BASE_URL . '/main.php?page=user&status=success');
+    redirectUrl(BASE_URL . '/main.php?page=user&status=success&message=User berhasil dihapus.');
 }
 
 ?>
@@ -31,6 +30,11 @@ if (isset($_POST['delete'])) {
                                         <th>No.</th>
                                         <th>Nama</th>
                                         <th>Email</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>No. Telepon</th>
+                                        <th>No. Whatsapp</th>
+                                        <th>Komplpek</th>
+                                        <th>Blok</th>
                                         <th>Level</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -42,7 +46,12 @@ if (isset($_POST['delete'])) {
                                             <td><?= $i++ ?></td>
                                             <td><?= $item['nama'] ?></td>
                                             <td><?= $item['email'] ?></td>
-                                            <td><?= $item['level'] ?></td>
+                                            <td><?= $item['jenis_kelamin'] ?? '-' ?></td>
+                                            <td><?= $item['nomor_telepon'] ?? '-' ?></td>
+                                            <td><?= $item['nomor_whatsapp'] ?? '-' ?></td>
+                                            <td><?= $item['nama_komplek'] ?? '-' ?></td>
+                                            <td><?= $item['nama_blok'] ?? '-' ?></td>
+                                            <td><?= $item['level'] ?? '-' ?></td>
                                             <td>
                                                 <a href="<?= BASE_URL . '/main.php?page=user-edit&id_user=' . $item['id_user'] ?>" class="btn btn-info"><i class="fas fa-edit"></i> Edit</a>
                                                 <form action="" method="post" class="d-inline">

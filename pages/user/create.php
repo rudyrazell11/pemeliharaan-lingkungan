@@ -1,16 +1,17 @@
 <?php
 
 require_once 'function/models/user.php';
-
+$data_komplek = getKomplek();
 
 if (isset($_POST['tambah'])) {
+
     $tambah = tambahData($_POST);
     if ($tambah) {
-        header('Location: ' . BASE_URL . '/main.php?page=user&status=success');
+        redirectUrl(BASE_URL . '/main.php?page=user&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">
-          Email atau password salah
+         User gagal ditambahkan.
         </div>
       ';
     }
@@ -35,7 +36,7 @@ if (isset($_POST['tambah'])) {
                         <?php if (isset($error)) : ?>
                             <?= $error ?>
                         <?php endif; ?>
-                        <form action="" method="post">
+                        <form action="" method="post" id="form">
                             <div class="form-group">
                                 <label for="nama">Nama</label>
                                 <input type="text" class="form-control" name="nama" value="" id="nama" required>
@@ -52,10 +53,10 @@ if (isset($_POST['tambah'])) {
                                     <option value="warga">Warga</option>
                                 </select>
                             </div>
-                            <div class="d-warga">
+                            <div class="d-warga d-none">
                                 <div class="form-group">
                                     <label for="jenis_kelamin">Jenis Kelamin</label>
-                                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
+                                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" >
                                         <option value="">Pilih Jenis Kelamin</option>
                                         <option value="Laki-laki">Laki-laki</option>
                                         <option value="Perempuan">Perempuan</option>
@@ -63,15 +64,30 @@ if (isset($_POST['tambah'])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="tanggal_lahir">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" name="tanggal_lahir" value="" id="tanggal_lahir" required>
+                                    <input type="date" class="form-control" name="tanggal_lahir" value="" id="tanggal_lahir" >
                                 </div>
                                 <div class="form-group">
                                     <label for="nomor_telepon">Nomor Telepon</label>
-                                    <input type="nomor_telepon" class="form-control" name="nomor_telepon" value="" id="nomor_telepon" required>
+                                    <input type="nomor_telepon" class="form-control" name="nomor_telepon" value="" id="nomor_telepon" >
                                 </div>
                                 <div class="form-group">
                                     <label for="nomor_whatsapp">Nomor Whatsapp</label>
-                                    <input type="nomor_whatsapp" class="form-control" name="nomor_whatsapp" value="" id="nomor_whatsapp" required>
+                                    <input type="nomor_whatsapp" class="form-control" name="nomor_whatsapp" value="" id="nomor_whatsapp" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_komplek">Komplek</label>
+                                    <select name="id_komplek" id="id_komplek" class="form-control" >
+                                        <option value="" selected>Pilih Komplek</option>
+                                        <?php foreach ($data_komplek as $komplek) : ?>
+                                            <option value="<?= $komplek['id_komplek'] ?>"><?= $komplek['nama_komplek'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_blok">Blok</label>
+                                    <select name="id_blok" id="id_blok" class="form-control" >
+                                        <option value="">Pilih Blok</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -92,6 +108,50 @@ if (isset($_POST['tambah'])) {
 
 <script>
     $(function() {
-        console.log('ok');
+
+        let getBlokByKomplek = function(id_komplek) {
+            let data;
+            $.ajax({
+                url: '<?= BASE_URL . '/pages/blok/get-by-komplek.php' ?>',
+                async: false,
+                type: 'GET',
+                data: {
+                    id_komplek
+                },
+                dataType: 'JSON',
+                success: function(response) {
+                    data = response;
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+
+            return data;
+        }
+
+        $('#form #level').on('change', function() {
+            let level = $(this).val();
+            if (level === 'admin') {
+                $('.d-warga').addClass('d-none');
+            } else {
+                $('.d-warga').removeClass('d-none');
+            }
+        })
+
+
+        // get blok by komplek
+        $('#form #id_komplek').on('change', function() {
+            let id_komplek = $(this).val();
+
+            let data_blok = getBlokByKomplek(id_komplek);
+            $('#form #id_blok').empty();
+            $('#form #id_blok').append(`<option value="">Pilih Blok</option>`)
+            data_blok.forEach(blok => {
+                $('#form #id_blok').append(`
+                    <option value="${blok.id_blok}">${blok.nama_blok}</option>
+                `)
+            })
+        })
     })
 </script>

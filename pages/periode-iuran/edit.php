@@ -9,11 +9,11 @@ $data_jenis_iuran = getJenisIuran();
 if (isset($_POST['tambah'])) {
     $tambah = updateData($_POST);
     if ($tambah) {
-        header('Location: ' . BASE_URL . '/main.php?page=periode-iuran&status=success');
+       redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">
-          Email atau password salah
+          Periode Iuran gagal diupdate!
         </div>
       ';
     }

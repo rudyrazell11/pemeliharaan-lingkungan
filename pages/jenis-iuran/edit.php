@@ -7,17 +7,17 @@ $id_jenis_iuran = $_GET['id_jenis_iuran'];
 $item = getById($id_jenis_iuran);
 
 if(!$item)
-    header('Location: ' . BASE_URL. '/main.php?page=jenis-iuran');
+   redirectUrl(BASE_URL. '/main.php?page=jenis-iuran');
 
 if (isset($_POST['update'])) {
    
     $update = updateData($_POST);
     if ($update) {
-        header('Location: ' . BASE_URL . '/main.php?page=jenis-iuran&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=jenis-iuran&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">
-          Email atau password salah
+         Jenis Iuran gagal diupdate!
         </div>
       ';
     }

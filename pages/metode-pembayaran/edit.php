@@ -17,7 +17,7 @@ if (isset($_POST['update'])) {
     } else {
         $error = '
         <div class="alert alert-danger">
-          Email atau password salah
+            Metode Pembayaran gagal diupdate!
         </div>
       ';
     }
@@ -29,8 +29,8 @@ if (isset($_POST['update'])) {
     <div class="section-header">
         <h1>Edit Metode Pembayaran</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="{{ route('admin.Metode Pembayaran.index') }}">Data Metode Pembayaran</a></div>
+            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="">Data Metode Pembayaran</a></div>
             <div class="breadcrumb-item">Edit Metode Pembayaran</div>
         </div>
     </div>

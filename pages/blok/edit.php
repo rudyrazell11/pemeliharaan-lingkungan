@@ -7,11 +7,11 @@ $data_komplek = getKomplek();
 if (isset($_POST['tambah'])) {
     $tambah = updateData($_POST);
     if ($tambah) {
-        header('Location: ' . BASE_URL . '/main.php?page=blok&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=blok&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">
-         Gagal di update.
+         Blok Gagal di update.
         </div>
       ';
     }

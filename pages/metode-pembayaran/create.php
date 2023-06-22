@@ -6,11 +6,11 @@ require_once 'function/models/metode_pembayaran.php';
 if (isset($_POST['tambah'])) {
     $tambah = tambahData($_POST);
     if ($tambah) {
-        header('Location: ' . BASE_URL . '/main.php?page=metode-pembayaran&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">
-          Email atau password salah
+         Metode Pembayaran gagal ditambahkan!
         </div>
       ';
     }

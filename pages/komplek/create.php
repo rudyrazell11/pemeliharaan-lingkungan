@@ -6,11 +6,11 @@ require_once 'function/models/komplek.php';
 if (isset($_POST['tambah'])) {
     $tambah = tambahData($_POST);
     if ($tambah) {
-        header('Location: ' . BASE_URL . '/main.php?page=komplek&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=komplek&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">
-          Email atau password salah
+         Komplek gagal ditambahkan!
         </div>
       ';
     }

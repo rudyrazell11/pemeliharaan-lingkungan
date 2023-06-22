@@ -6,11 +6,11 @@ require_once 'function/models/jenis_iuran.php';
 if (isset($_POST['tambah'])) {
     $tambah = tambahData($_POST);
     if ($tambah) {
-        header('Location: ' . BASE_URL . '/main.php?page=jenis-iuran&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=jenis-iuran&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">
-          Email atau password salah
+        Jenis Iuran gagal ditambahkan!
         </div>
       ';
     }

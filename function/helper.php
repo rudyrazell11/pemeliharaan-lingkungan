@@ -67,3 +67,8 @@ function getMonth()
 
     return $bulan;
 }
+
+function redirectUrl($url)
+{
+    echo '<script>window.location.href = "'.$url.'";</script>';
+}

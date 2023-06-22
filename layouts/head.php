@@ -11,4 +11,7 @@
 <!-- Template CSS -->
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/components.css">
+<?php if (isset($refresh)) : ?>
+    <meta http-equiv="refresh" content="0">
+<?php endif; ?>
 <script src="<?= BASE_URL ?>/assets/js/jquery-3.6.1.min.js"></script>

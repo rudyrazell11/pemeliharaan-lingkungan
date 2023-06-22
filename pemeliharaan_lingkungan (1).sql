@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 21, 2023 at 03:10 PM
+-- Generation Time: Jun 22, 2023 at 09:26 PM
 -- Server version: 8.0.32-0ubuntu0.20.04.2
 -- PHP Version: 8.1.18
 
@@ -60,8 +60,7 @@ CREATE TABLE `jenis_iuran` (
 INSERT INTO `jenis_iuran` (`id_jenis_iuran`, `nama_jenis`, `nominal`) VALUES
 (1, 'Bulanan Iuran', 20000),
 (2, 'Iuran Kemerdekaan', 10000),
-(5, 'sdfadsf', 60000),
-(8, 'IURAN !', 100000);
+(5, 'sdfadsf', 60000);
 
 -- --------------------------------------------------------
 
@@ -122,9 +121,7 @@ CREATE TABLE `periode_iuran` (
 --
 
 INSERT INTO `periode_iuran` (`id_periode_iuran`, `bulan`, `tahun`, `id_jenis_iuran`) VALUES
-(1, 1, 2023, 8),
-(2, 3, 2025, 2),
-(3, 2, 2023, 8);
+(2, 3, 2025, 2);
 
 -- --------------------------------------------------------
 
@@ -155,7 +152,7 @@ INSERT INTO `user` (`id_user`, `nama`, `email`, `password`, `level`) VALUES
 
 CREATE TABLE `warga` (
   `id_warga` int NOT NULL,
-  `nama` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_warga` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `jenis_kelamin` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `nomor_telepon` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
@@ -252,13 +249,13 @@ ALTER TABLE `periode_iuran`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `warga`
 --
 ALTER TABLE `warga`
-  MODIFY `id_warga` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_warga` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -275,6 +272,13 @@ ALTER TABLE `blok`
 --
 ALTER TABLE `periode_iuran`
   ADD CONSTRAINT `periode_iuran_ibfk_1` FOREIGN KEY (`id_jenis_iuran`) REFERENCES `jenis_iuran` (`id_jenis_iuran`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `warga`
+--
+ALTER TABLE `warga`
+  ADD CONSTRAINT `warga_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `warga_ibfk_2` FOREIGN KEY (`id_blok`) REFERENCES `blok` (`id_blok`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
