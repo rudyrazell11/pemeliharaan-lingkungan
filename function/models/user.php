@@ -80,6 +80,13 @@ function getById($id_user)
     return $item;
 }
 
+function getDetailWarga($id_warga)
+{
+    global $koneksi;
+    $item = $koneksi->query("SELECT * FROM warga INNER JOIN blok ON blok.id_blok=warga.id_blok INNER JOIN komplek ON komplek.id_komplek=blok.id_komplek WHERE id_warga=$id_warga")->fetch_assoc();
+    return $item;
+}
+
 function updateData($post)
 {
     global $koneksi;
@@ -137,4 +144,39 @@ function getBlokDetail($id_blok)
     global $koneksi;
     $item = $koneksi->query("SELECT * FROM blok  WHERE id_blok=$id_blok")->fetch_assoc();
     return $item;
+}
+
+
+function updateProfile($post)
+{
+    global $koneksi;
+  
+    // cek apakah admin atau warga
+    $nama = htmlspecialchars($post['nama']);
+    $email = htmlspecialchars($post['email']);
+
+    // update user
+    if ($post['password']) {
+        
+        $pw_hash = password_hash($post['password'],PASSWORD_BCRYPT);
+        $passwordUpdate = ",`password` = " . "'". $pw_hash . "'";
+    } else {
+        $passwordUpdate = NULL;
+    }
+    $user = $koneksi->query("UPDATE `user` SET `nama` = '$nama', `email` = '$email' $passwordUpdate WHERE `user`.`id_user` = $_SESSION[id_user]");
+    
+    if($user)
+    {
+         // hapus session
+         unset($_SESSION['nama']);
+         unset($_SESSION['email']);
+
+         // buat session baru
+         $_SESSION['nama'] = $nama;
+         $_SESSION['email'] = $email;
+
+         return true;
+    }else{
+        return false;
+    }
 }

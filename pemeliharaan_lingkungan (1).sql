@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 22, 2023 at 09:26 PM
+-- Generation Time: Jun 23, 2023 at 03:16 PM
 -- Server version: 8.0.32-0ubuntu0.20.04.2
 -- PHP Version: 8.1.18
 
@@ -49,18 +49,16 @@ INSERT INTO `blok` (`id_blok`, `nama_blok`, `id_komplek`) VALUES
 
 CREATE TABLE `jenis_iuran` (
   `id_jenis_iuran` int NOT NULL,
-  `nama_jenis` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `nominal` bigint NOT NULL
+  `nama_jenis` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `jenis_iuran`
 --
 
-INSERT INTO `jenis_iuran` (`id_jenis_iuran`, `nama_jenis`, `nominal`) VALUES
-(1, 'Bulanan Iuran', 20000),
-(2, 'Iuran Kemerdekaan', 10000),
-(5, 'sdfadsf', 60000);
+INSERT INTO `jenis_iuran` (`id_jenis_iuran`, `nama_jenis`) VALUES
+(1, 'Bulanan Iuran'),
+(2, 'Iuran Kemerdekaan');
 
 -- --------------------------------------------------------
 
@@ -106,6 +104,32 @@ INSERT INTO `metode_pembayaran` (`id_metode_pembayaran`, `nama`, `nomor`, `pemil
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `id_pembayaran` int NOT NULL,
+  `kode_pembayaran` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_warga` int NOT NULL,
+  `id_periode_iuran` int NOT NULL,
+  `id_metode_pembayaran` int NOT NULL,
+  `nominal` bigint NOT NULL,
+  `status` enum('Sudah Bayar','Belum Bayar','Gagal') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Belum Bayar',
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_pembayaran`, `kode_pembayaran`, `id_warga`, `id_periode_iuran`, `id_metode_pembayaran`, `nominal`, `status`, `tanggal`) VALUES
+(2, 'asadfa', 14, 2, 5, 100000, 'Sudah Bayar', '2023-06-23 09:14:53'),
+(3, '1687487332', 14, 8, 5, 200000, 'Sudah Bayar', '2023-06-23 09:28:52'),
+(5, '1687491470', 15, 2, 1, 25000, 'Sudah Bayar', '2023-06-23 10:37:50');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `periode_iuran`
 --
 
@@ -113,15 +137,17 @@ CREATE TABLE `periode_iuran` (
   `id_periode_iuran` int NOT NULL,
   `bulan` int NOT NULL,
   `tahun` int NOT NULL,
-  `id_jenis_iuran` int NOT NULL
+  `id_jenis_iuran` int NOT NULL,
+  `nominal` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `periode_iuran`
 --
 
-INSERT INTO `periode_iuran` (`id_periode_iuran`, `bulan`, `tahun`, `id_jenis_iuran`) VALUES
-(2, 3, 2025, 2);
+INSERT INTO `periode_iuran` (`id_periode_iuran`, `bulan`, `tahun`, `id_jenis_iuran`, `nominal`) VALUES
+(2, 3, 2025, 2, 25000),
+(8, 2, 2023, 1, 200000);
 
 -- --------------------------------------------------------
 
@@ -142,7 +168,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `email`, `password`, `level`) VALUES
-(1, 'Admin', 'admin@gmail.com', '$2a$12$7iBDJoXDKVK18iQOF1x.DOUY9ZMzg/E9laJu/UPQvJin0OeJD0UEu', 'admin');
+(1, 'Admin', 'admin@gmail.com', '$2a$12$7iBDJoXDKVK18iQOF1x.DOUY9ZMzg/E9laJu/UPQvJin0OeJD0UEu', 'admin'),
+(28, 'Incididunt accusamus', 'warga@gmail.com', '$2y$10$ZAFcdmAhg8LbQaot6CzVtuHyisOMgvkzPC2Atzr/Giu.hm6at.PnK', 'warga'),
+(29, 'Ducimus autem modi ', 'cycu@mailinator.com', '$2y$10$uAsJrzop7lr6obKdmFWS9uxIvPwl9dWGubceIIsrfFryD6tr8rObG', 'warga');
 
 -- --------------------------------------------------------
 
@@ -160,6 +188,14 @@ CREATE TABLE `warga` (
   `id_blok` int NOT NULL,
   `id_user` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `warga`
+--
+
+INSERT INTO `warga` (`id_warga`, `nama_warga`, `jenis_kelamin`, `tanggal_lahir`, `nomor_telepon`, `nomor_whatsapp`, `id_blok`, `id_user`) VALUES
+(14, 'Incididunt accusamus', 'Laki-laki', '2023-06-13', '089123123121', '089123123121', 3, 28),
+(15, 'Ducimus autem modi ', 'Perempuan', '2023-06-22', '089123123121', '412312412412', 3, 29);
 
 --
 -- Indexes for dumped tables
@@ -189,6 +225,16 @@ ALTER TABLE `komplek`
 --
 ALTER TABLE `metode_pembayaran`
   ADD PRIMARY KEY (`id_metode_pembayaran`);
+
+--
+-- Indexes for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD PRIMARY KEY (`id_pembayaran`),
+  ADD UNIQUE KEY `kode_pembayaran` (`kode_pembayaran`),
+  ADD KEY `id_warga` (`id_warga`),
+  ADD KEY `id_periode_iuran` (`id_periode_iuran`),
+  ADD KEY `id_metode_pembayaran` (`id_metode_pembayaran`);
 
 --
 -- Indexes for table `periode_iuran`
@@ -225,7 +271,7 @@ ALTER TABLE `blok`
 -- AUTO_INCREMENT for table `jenis_iuran`
 --
 ALTER TABLE `jenis_iuran`
-  MODIFY `id_jenis_iuran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_jenis_iuran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `komplek`
@@ -240,22 +286,28 @@ ALTER TABLE `metode_pembayaran`
   MODIFY `id_metode_pembayaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `id_pembayaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `periode_iuran`
 --
 ALTER TABLE `periode_iuran`
-  MODIFY `id_periode_iuran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_periode_iuran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `warga`
 --
 ALTER TABLE `warga`
-  MODIFY `id_warga` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_warga` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
@@ -266,6 +318,14 @@ ALTER TABLE `warga`
 --
 ALTER TABLE `blok`
   ADD CONSTRAINT `blok_ibfk_1` FOREIGN KEY (`id_komplek`) REFERENCES `komplek` (`id_komplek`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_metode_pembayaran`) REFERENCES `metode_pembayaran` (`id_metode_pembayaran`),
+  ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`id_warga`) REFERENCES `warga` (`id_warga`),
+  ADD CONSTRAINT `pembayaran_ibfk_3` FOREIGN KEY (`id_periode_iuran`) REFERENCES `periode_iuran` (`id_periode_iuran`);
 
 --
 -- Constraints for table `periode_iuran`

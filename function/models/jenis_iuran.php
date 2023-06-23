@@ -18,8 +18,7 @@ function tambahData($post)
 {
     global $koneksi;
     $nama_jenis = htmlspecialchars($post['nama_jenis']);
-    $nominal = htmlspecialchars($post['nominal']);
-    $insert = $koneksi->query("INSERT INTO `jenis_iuran` (`id_jenis_iuran`, `nama_jenis`, `nominal`) VALUES (NULL, '$nama_jenis',$nominal)");
+    $insert = $koneksi->query("INSERT INTO `jenis_iuran` (`id_jenis_iuran`, `nama_jenis`) VALUES (NULL, '$nama_jenis')");
     if($insert)
     {
         $insertId = $koneksi->insert_id;
@@ -42,8 +41,7 @@ function updateData($post)
     global $koneksi;
     $id_jenis_iuran = htmlspecialchars($post['id_jenis_iuran']);
     $nama_jenis = htmlspecialchars($post['nama_jenis']);
-    $nominal = htmlspecialchars($post['nominal']);
-    $update = $koneksi->query("UPDATE `jenis_iuran` SET `nama_jenis` = '$nama_jenis', `nominal` = $nominal WHERE `jenis_iuran`.`id_jenis_iuran` = $id_jenis_iuran;");
+    $update = $koneksi->query("UPDATE `jenis_iuran` SET `nama_jenis` = '$nama_jenis' WHERE `jenis_iuran`.`id_jenis_iuran` = $id_jenis_iuran;");
 
     if($update)
     {

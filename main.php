@@ -89,6 +89,18 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     case 'user-edit':
                         include 'pages/user/edit.php';
                         break;
+                    case 'pembayaran':
+                        include 'pages/pembayaran/index.php';
+                        break;
+                    case 'pembayaran-create':
+                        include 'pages/pembayaran/create.php';
+                        break;
+                    case 'pembayaran-edit':
+                        include 'pages/pembayaran/edit.php';
+                        break;
+                    case 'profile':
+                        include 'pages/profile.php';
+                        break;
                     default:
                         include 'pages/dashboard.php';
                         break;
@@ -106,7 +118,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
         </div>
     </div>
 
-   
+
     <script src="<?= BASE_URL ?>/assets/js/jquery.nicescroll.min.js"></script>
     <script src="<?= BASE_URL ?>/assets/js/moment.js"></script>
     <script src="<?= BASE_URL ?>/assets/js/popper.min.js"></script>
@@ -118,6 +130,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
     <!-- Template JS File -->
     <script src="<?= BASE_URL ?>/assets/js/scripts.js"></script>
     <script src="<?= BASE_URL ?>/assets/js/custom.js"></script>
+
+    <script src="<?= BASE_URL . '/assets/datatables/jquery.dataTables.min.js' ?>"></script>
+    <script src="<?= BASE_URL . '/assets/datatables-bs4/js/dataTables.bootstrap4.min.js' ?>"></script>
+    <script src="<?= BASE_URL . '/assets/sweetalert2/sweetalert2.min.js' ?>"></script>
+    <script>
+        $(function() {
+            $('#dTable').DataTable();
+        })
+    </script>
 </body>
 
 </html>

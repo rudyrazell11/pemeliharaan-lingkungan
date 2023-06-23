@@ -18,6 +18,9 @@
         <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/main.php?page=periode-iuran' ?>"><i class="fas fa-fire"></i>
                 <span>Periode Iuran</span></a>
         </li>
+        <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/main.php?page=pembayaran' ?>"><i class="fas fa-fire"></i>
+                <span>Pembayaran</span></a>
+        </li>
         <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/main.php?page=komplek' ?>"><i class="fas fa-fire"></i>
                 <span>Komplek</span></a>
         </li>

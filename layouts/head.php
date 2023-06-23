@@ -11,7 +11,9 @@
 <!-- Template CSS -->
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/components.css">
-<?php if (isset($refresh)) : ?>
-    <meta http-equiv="refresh" content="0">
-<?php endif; ?>
+
+<link rel="stylesheet" href="<?= BASE_URL . '/assets/datatables-bs4/css/dataTables.bootstrap4.min.css'?>">
+<link rel="stylesheet" href="<?= BASE_URL . '/assets/datatables-responsive/css/responsive.bootstrap4.min.css'?>">
+<link rel="stylesheet" href="<?= BASE_URL . '/assets/sweetalert2/sweetalert2.all.min.js'?>">
+<link rel="stylesheet" href="<?= BASE_URL . '/assets/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'?>">
 <script src="<?= BASE_URL ?>/assets/js/jquery-3.6.1.min.js"></script>

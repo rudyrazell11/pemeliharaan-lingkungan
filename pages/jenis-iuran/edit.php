@@ -50,10 +50,6 @@ if (isset($_POST['update'])) {
                                 <input type="text" class="form-control" name="nama_jenis" value="<?= $item['nama_jenis'] ?>" id="nama_jenis">
                             </div>
                             <div class="form-group">
-                                <label for="nominal">Nominal</label>
-                                <input type="number" class="form-control" name="nominal" value="<?= $item['nominal'] ?>" id="nominal">
-                            </div>
-                            <div class="form-group">
                                 <button name="update" class="btn btn-block btn-primary"><i class="fas fa-save"></i>
                                     Update</button>
                             </div>

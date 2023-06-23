@@ -22,7 +22,12 @@ function process_login($post)
             $_SESSION['nama'] = $user->nama;
             $_SESSION['email'] = $user->email;
             $_SESSION['level'] = $user->level;
-            return true;
+            if($user->level === 'admin')
+            {
+                redirectUrl(BASE_URL . '/main.php?page=dashboard');
+            }else{
+                redirectUrl(BASE_URL . '/warga.php?page=dashboard');
+            }
         }else{
             return false;
         }

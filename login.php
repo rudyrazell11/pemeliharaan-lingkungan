@@ -3,6 +3,7 @@
 include 'config/config.php';
 include 'config/koneksi.php';
 include 'function/auth.php';
+include 'function/helper.php';
 
 if (isset($_POST['login'])) {
   $proces_login = process_login($_POST);

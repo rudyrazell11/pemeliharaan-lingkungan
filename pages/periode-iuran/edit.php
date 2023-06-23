@@ -61,13 +61,17 @@ if (isset($_POST['tambah'])) {
                                         <?php if($jenis['id_jenis_iuran'] == $item['id_jenis_iuran']) : ?>
                                         selected
                                         <?php endif; ?>
-                                        value="<?= $jenis['id_jenis_iuran'] ?>"><?= $jenis['nama_jenis'] . ' | Rp ' . number_format($jenis['nominal']) ?></option>
+                                        value="<?= $jenis['id_jenis_iuran'] ?>"><?= $jenis['nama_jenis'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="tahun">Tahun</label>
                                 <input type="number" class="form-control" name="tahun" value="<?= $item['tahun'] ?>" id="tahun">
+                            </div>
+                            <div class="form-group">
+                                <label for="nominal">Nominal</label>
+                                <input type="number" class="form-control" name="nominal" value="<?= $item['nominal'] ?>" id="nominal">
                             </div>
                             <div class="form-group">
                                 <button name="tambah" class="btn btn-block btn-primary"><i class="fas fa-plus"></i>
@@ -79,6 +83,5 @@ if (isset($_POST['tambah'])) {
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>

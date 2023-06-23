@@ -20,7 +20,8 @@ function tambahData($post)
     $id_jenis_iuran = htmlspecialchars($post['id_jenis_iuran']);
     $bulan = htmlspecialchars($post['bulan']);
     $tahun = htmlspecialchars($post['tahun']);
-    $insert = $koneksi->query("INSERT INTO `periode_iuran` (`id_periode_iuran`, `id_jenis_iuran`, `bulan`, `tahun`) VALUES (NULL, '$id_jenis_iuran', '$bulan', '$tahun')");
+    $nominal = htmlspecialchars($post['nominal']);
+    $insert = $koneksi->query("INSERT INTO `periode_iuran` (`id_periode_iuran`, `id_jenis_iuran`, `bulan`, `tahun`,`nominal`) VALUES (NULL, '$id_jenis_iuran', '$bulan', '$tahun',$nominal)");
     if($insert)
     {
         $insertId = $koneksi->insert_id;
@@ -44,8 +45,9 @@ function updateData($post)
     $id_periode_iuran = htmlspecialchars($post['id_periode_iuran']);
     $bulan = htmlspecialchars($post['bulan']);
     $tahun = htmlspecialchars($post['tahun']);
+    $nominal = htmlspecialchars($post['nominal']);
     $id_jenis_iuran = htmlspecialchars($post['id_jenis_iuran']);
-    $update = $koneksi->query("UPDATE `periode_iuran` SET `bulan` = '$bulan', `tahun` = '$tahun', `id_jenis_iuran` = '$id_jenis_iuran' WHERE `periode_iuran`.`id_periode_iuran` = $id_periode_iuran;");
+    $update = $koneksi->query("UPDATE `periode_iuran` SET `bulan` = '$bulan', `tahun` = '$tahun',`nominal` = '$nominal', `id_jenis_iuran` = '$id_jenis_iuran' WHERE `periode_iuran`.`id_periode_iuran` = $id_periode_iuran;");
 
     if($update)
     {

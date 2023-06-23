@@ -30,7 +30,6 @@ if (isset($_POST['delete'])) {
                                     <tr>
                                         <th>No.</th>
                                         <th>Nama Jenis</th>
-                                        <th>Nominal</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -40,7 +39,6 @@ if (isset($_POST['delete'])) {
                                         <tr>
                                             <td><?= $i++ ?></td>
                                             <td><?= $item['nama_jenis'] ?></td>
-                                            <td><?= $item['nominal'] ?></td>
                                             <td>
                                                 <a href="<?= BASE_URL . '/main.php?page=jenis-iuran-edit&id_jenis_iuran=' . $item['id_jenis_iuran'] ?>" class="btn btn-info"><i class="fas fa-edit"></i> Edit</a>
                                                 <form action="" method="post" class="d-inline">

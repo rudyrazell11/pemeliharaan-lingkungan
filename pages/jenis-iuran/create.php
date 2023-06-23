@@ -41,10 +41,6 @@ if (isset($_POST['tambah'])) {
                                 <input type="text" class="form-control" name="nama_jenis" value="" id="nama_jenis">
                             </div>
                             <div class="form-group">
-                                <label for="nominal">Nominal</label>
-                                <input type="number" class="form-control" name="nominal" value="" id="nominal">
-                            </div>
-                            <div class="form-group">
                                 <button name="tambah" class="btn btn-block btn-primary"><i class="fas fa-plus"></i>
                                     Tambah</button>
                             </div>

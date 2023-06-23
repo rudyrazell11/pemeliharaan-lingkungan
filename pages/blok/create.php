@@ -63,5 +63,4 @@ if (isset($_POST['tambah'])) {
             </div>
         </div>
     </div>
-    </div>
 </section>
