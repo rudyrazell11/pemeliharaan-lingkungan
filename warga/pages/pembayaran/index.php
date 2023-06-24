@@ -27,6 +27,7 @@ $items = get();
                                         <th>Kode Pembayaran</th>
                                         <th>Nama Warga</th>
                                         <th>Jenis Iuran</th>
+                                        <th>Periode</th>
                                         <th>Nominal</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
@@ -41,12 +42,15 @@ $items = get();
                                             <td><?= $item['kode_pembayaran'] ?></td>
                                             <td><?= $item['nama_warga'] ?></td>
                                             <td><?= $item['nama_jenis'] ?></td>
+                                            <td><?= getMonthName($item['bulan']) . ' - ' . $item['tahun'] ?></td>
                                             <td>Rp <?= number_format($item['nominal']) ?></td>
                                             <td>
-                                                <?php if($item['status'] === 'Belum Bayar') : ?>
-                                                <span class="badge badge-info">Belum Bayar</span>
-                                                <?php elseif($item['status'] === 'Sudah Bayar') : ?>
+                                                <?php if ($item['status'] === 'Belum Bayar') : ?>
+                                                    <span class="badge badge-info">Belum Bayar</span>
+                                                <?php elseif ($item['status'] === 'Sudah Bayar') : ?>
                                                     <span class="badge badge-success">Sudah Bayar</span>
+                                                <?php elseif ($item['status'] === 'Proses') : ?>
+                                                    <span class="badge badge-warning">Menunggu Verifikasi</span>
                                                 <?php else : ?>
                                                     <span class="badge badge-danger">Gagal</span>
                                                 <?php endif; ?>

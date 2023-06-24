@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 23, 2023 at 03:16 PM
+-- Generation Time: Jun 24, 2023 at 11:41 PM
 -- Server version: 8.0.32-0ubuntu0.20.04.2
 -- PHP Version: 8.1.18
 
@@ -97,9 +97,9 @@ CREATE TABLE `metode_pembayaran` (
 --
 
 INSERT INTO `metode_pembayaran` (`id_metode_pembayaran`, `nama`, `nomor`, `pemilik`) VALUES
-(1, 'Cashddf123', 'df123', 'dfdf123'),
-(5, 'asdfasdf', '12312', 'asdfasdg'),
-(8, 'asdfa', 'sdfasdf', 'asdfasdf');
+(1, 'Bank Mandiri', '1788729310', 'Admin'),
+(5, 'Bank BCA', '178312341', 'Admin 2'),
+(8, 'Cash', '', '');
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,7 @@ CREATE TABLE `pembayaran` (
   `id_periode_iuran` int NOT NULL,
   `id_metode_pembayaran` int NOT NULL,
   `nominal` bigint NOT NULL,
-  `status` enum('Sudah Bayar','Belum Bayar','Gagal') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Belum Bayar',
+  `status` enum('Sudah Bayar','Belum Bayar','Gagal','Proses') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Belum Bayar',
   `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -123,9 +123,10 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `kode_pembayaran`, `id_warga`, `id_periode_iuran`, `id_metode_pembayaran`, `nominal`, `status`, `tanggal`) VALUES
-(2, 'asadfa', 14, 2, 5, 100000, 'Sudah Bayar', '2023-06-23 09:14:53'),
-(3, '1687487332', 14, 8, 5, 200000, 'Sudah Bayar', '2023-06-23 09:28:52'),
-(5, '1687491470', 15, 2, 1, 25000, 'Sudah Bayar', '2023-06-23 10:37:50');
+(6, '1687615540', 14, 8, 1, 200000, 'Sudah Bayar', '2023-06-24 21:05:40'),
+(7, '1687622262', 14, 2, 1, 25000, 'Sudah Bayar', '2023-06-24 22:57:42'),
+(8, '1687622323', 14, 10, 1, 60000, 'Sudah Bayar', '2023-06-24 22:58:43'),
+(9, '1687622343', 14, 9, 1, 50000, 'Proses', '2023-06-24 22:59:03');
 
 -- --------------------------------------------------------
 
@@ -147,7 +148,10 @@ CREATE TABLE `periode_iuran` (
 
 INSERT INTO `periode_iuran` (`id_periode_iuran`, `bulan`, `tahun`, `id_jenis_iuran`, `nominal`) VALUES
 (2, 3, 2025, 2, 25000),
-(8, 2, 2023, 1, 200000);
+(8, 2, 2023, 1, 200000),
+(9, 4, 2023, 1, 50000),
+(10, 5, 2023, 1, 60000),
+(11, 6, 2023, 1, 5000000);
 
 -- --------------------------------------------------------
 
@@ -168,9 +172,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `email`, `password`, `level`) VALUES
-(1, 'Admin', 'admin@gmail.com', '$2a$12$7iBDJoXDKVK18iQOF1x.DOUY9ZMzg/E9laJu/UPQvJin0OeJD0UEu', 'admin'),
-(28, 'Incididunt accusamus', 'warga@gmail.com', '$2y$10$ZAFcdmAhg8LbQaot6CzVtuHyisOMgvkzPC2Atzr/Giu.hm6at.PnK', 'warga'),
-(29, 'Ducimus autem modi ', 'cycu@mailinator.com', '$2y$10$uAsJrzop7lr6obKdmFWS9uxIvPwl9dWGubceIIsrfFryD6tr8rObG', 'warga');
+(1, 'Admin123', 'admin@gmail.com', '$2y$10$lG2SrI1UJkdsmVmPyHGfTOIWwL/1RNxk25.KUc7G7q/39MXI1wt6i', 'admin'),
+(28, 'Agus Setiawan', 'agus@gmail.com', '$2y$10$e7ckHPgGx9CET2FeA0mdY./DvyD0.B2TDrGbQmYQeHZTIQybdKfkS', 'warga'),
+(29, 'Ducimus autem modi ', 'cycu@mailinator.com', '$2y$10$gylXbb9FLBUnGeZg2U4bI.cSY3y7Mhs.ymr.a9e5FNQGdmvjjJdJa', 'warga'),
+(30, 'Deni Muhammad', 'deni@gmail.com', '$2y$10$/Rcnobizmd8EAr4HIcme5Od2n2yCrG6GGm4vvRN0b.QOx9tHcAZx6', 'warga');
 
 -- --------------------------------------------------------
 
@@ -194,8 +199,9 @@ CREATE TABLE `warga` (
 --
 
 INSERT INTO `warga` (`id_warga`, `nama_warga`, `jenis_kelamin`, `tanggal_lahir`, `nomor_telepon`, `nomor_whatsapp`, `id_blok`, `id_user`) VALUES
-(14, 'Incididunt accusamus', 'Laki-laki', '2023-06-13', '089123123121', '089123123121', 3, 28),
-(15, 'Ducimus autem modi ', 'Perempuan', '2023-06-22', '089123123121', '412312412412', 3, 29);
+(14, 'Agus Setiawan', 'Laki-laki', '2023-06-13', '089123123121', '089123123121', 3, 28),
+(15, 'Ducimus autem modi ', 'Perempuan', '2023-06-22', '08991231231', '08991231231', 3, 29),
+(16, 'Deni Muhammad', 'Laki-laki', '2023-06-23', '08989123123', '0898123124', 3, 30);
 
 --
 -- Indexes for dumped tables
@@ -289,25 +295,25 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pembayaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `periode_iuran`
 --
 ALTER TABLE `periode_iuran`
-  MODIFY `id_periode_iuran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_periode_iuran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `warga`
 --
 ALTER TABLE `warga`
-  MODIFY `id_warga` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_warga` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

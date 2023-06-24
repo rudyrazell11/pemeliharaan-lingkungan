@@ -92,6 +92,7 @@ if (isset($_POST['tambah'])) {
                                 <select name="status" id="status" class="form-control">
                                     <option value="">Pilih Status</option>
                                     <option <?php if ($item['status'] === 'Belum Bayar') : ?> selected <?php endif; ?> value="Belum Bayar">Belum Bayar</option>
+                                    <option <?php if ($item['status'] === 'Proses') : ?> selected <?php endif; ?> value="Proses">Proses</option>
                                     <option <?php if ($item['status'] === 'Sudah Bayar') : ?> selected <?php endif; ?> value="Sudah Bayar">Sudah Bayar</option>
                                     <option <?php if ($item['status'] === 'Gagal') : ?> selected <?php endif; ?> value="Gagal">Gagal</option>
                                 </select>

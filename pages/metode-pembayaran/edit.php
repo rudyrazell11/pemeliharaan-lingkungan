@@ -6,14 +6,14 @@ $id_metode_pembayaran = $_GET['id_metode_pembayaran'];
 
 $item = getById($id_metode_pembayaran);
 
-if(!$item)
-    header('Location: ' . BASE_URL. '/main.php?page=metode-pembayaran');
+if (!$item)
+    redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran');
 
 if (isset($_POST['update'])) {
-   
+
     $update = updateData($_POST);
     if ($update) {
-        header('Location: ' . BASE_URL . '/main.php?page=metode-pembayaran&status=success');
+        redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran&status=success');
     } else {
         $error = '
         <div class="alert alert-danger">

@@ -48,10 +48,12 @@ if (isset($_POST['delete'])) {
                                             <td><?= $item['nama_jenis'] ?></td>
                                             <td>Rp <?= number_format($item['nominal']) ?></td>
                                             <td>
-                                                <?php if($item['status'] === 'Belum Bayar') : ?>
-                                                <span class="badge badge-info">Belum Bayar</span>
-                                                <?php elseif($item['status'] === 'Sudah Bayar') : ?>
+                                                <?php if ($item['status'] === 'Belum Bayar') : ?>
+                                                    <span class="badge badge-info">Belum Bayar</span>
+                                                <?php elseif ($item['status'] === 'Sudah Bayar') : ?>
                                                     <span class="badge badge-success">Sudah Bayar</span>
+                                                <?php elseif ($item['status'] === 'Proses') : ?>
+                                                    <span class="badge badge-info">Menunggu Verifikasi</span>
                                                 <?php else : ?>
                                                     <span class="badge badge-danger">Gagal</span>
                                                 <?php endif; ?>

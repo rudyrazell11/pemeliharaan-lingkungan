@@ -75,9 +75,10 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                         <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/warga.php?page=dashboard' ?>"><i class="fas fa-fire"></i>
                                 <span>Dashboard</span></a>
                         </li>
-                    </ul>
-                    <ul class="sidebar-menu">
-                        <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/warga.php?page=pembayaran' ?>"><i class="fas fa-fire"></i>
+                        <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/warga.php?page=tagihan' ?>"><i class="fas fa-table"></i>
+                                <span>Daftar Tagihan</span></a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="<?= BASE_URL . '/warga.php?page=pembayaran' ?>"><i class="fas fa-money-check-alt"></i>
                                 <span>Riwayat Pembayaran</span></a>
                         </li>
                     </ul>
@@ -97,8 +98,14 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     case 'pembayaran-detail':
                         include 'warga/pages/pembayaran/detail.php';
                         break;
+                    case 'tagihan':
+                        include 'warga/pages/tagihan/index.php';
+                        break;
                     case 'profile':
                         include 'warga/pages/profile.php';
+                        break;
+                    case 'bayar-iuran':
+                        include 'warga/pages/tagihan/bayar.php';
                         break;
                     default:
                         include 'warga/pages/dashboard.php';
