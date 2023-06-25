@@ -101,6 +101,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     case 'profile':
                         include 'pages/profile.php';
                         break;
+                    case 'laporan':
+                        include 'pages/laporan/index.php';
+                        break;
                     default:
                         include 'pages/dashboard.php';
                         break;
