@@ -4,9 +4,10 @@ require_once 'function/models/metode_pembayaran.php';
 
 
 if (isset($_POST['tambah'])) {
+    validasiTambah($_POST);
     $tambah = tambahData($_POST);
     if ($tambah) {
-      redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran&status=success&message=Metode Pembayaran berhasil ditambah!');
     } else {
         $error = '
         <div class="alert alert-danger">

@@ -6,9 +6,10 @@ require_once 'function/helper.php';
 $data_bulan = getMonth();
 $data_jenis_iuran = getJenisIuran();
 if (isset($_POST['tambah'])) {
+    validasiTambah($_POST);
     $tambah = tambahData($_POST);
     if ($tambah) {
-      redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success&message=Periode Iuran berhasil ditambahkan!');
     } else {
         $error = '
         <div class="alert alert-danger">

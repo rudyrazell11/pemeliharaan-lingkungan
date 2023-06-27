@@ -60,3 +60,21 @@ function deleteData($id_metode_pembayaran)
     global $koneksi;
     $item = $koneksi->query("DELETE FROM metode_pembayaran WHERE id_metode_pembayaran=$id_metode_pembayaran");
 }
+
+function validasiTambah($post)
+{
+    if(!$post['nama'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran-create&status=error&message=Nama tidak boleh kosong.');
+        exit;
+    }
+}
+
+function validasiEdit($post)
+{
+    if(!$post['nama'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran-edit&id_metode_pembayaran='.$post['id_metode_pembayaran'].'&status=error&message=Nama tidak boleh kosong.');
+        exit;
+    }
+}

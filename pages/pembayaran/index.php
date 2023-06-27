@@ -5,7 +5,7 @@ require_once 'function/models/pembayaran.php';
 $items = get();
 if (isset($_POST['delete'])) {
     $delete = deleteData($_POST['id_pembayaran']);
-    redirectUrl(BASE_URL . '/main.php?page=pembayaran&status=success');
+    redirectUrl(BASE_URL . '/main.php?page=pembayaran&status=success&message=Pembayaran berhasil dihapus!');
 }
 
 ?>
@@ -53,7 +53,7 @@ if (isset($_POST['delete'])) {
                                                 <?php elseif ($item['status'] === 'Sudah Bayar') : ?>
                                                     <span class="badge badge-success">Sudah Bayar</span>
                                                 <?php elseif ($item['status'] === 'Proses') : ?>
-                                                    <span class="badge badge-info">Menunggu Verifikasi</span>
+                                                    <span class="badge badge-warning">Menunggu Verifikasi</span>
                                                 <?php else : ?>
                                                     <span class="badge badge-danger">Gagal</span>
                                                 <?php endif; ?>

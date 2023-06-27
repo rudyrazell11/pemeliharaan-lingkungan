@@ -142,6 +142,36 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
             $('#dTable').DataTable();
         })
     </script>
+    <?php if(isset($_GET['status'])) : ?>
+    <?php if($_GET['status'] === 'success') : ?>
+        <script>
+            $(function() {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '<?= $_GET['message'] ?? 'Berhasil' ?>',
+                    showConfirmButton: true,
+                    timer: 2500
+                })
+            })
+        </script>
+    <?php endif; ?>
+    <?php if($_GET['status'] === 'error') : ?>
+        <script>
+            $(function() {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '<?= $_GET['message'] ?? 'Gagal' ?>',
+                    showConfirmButton: true,
+                    timer: 2500
+                })
+            })
+        </script>
+    <?php endif; ?>
+    <?php endif; ?>
 </body>
 
 </html>

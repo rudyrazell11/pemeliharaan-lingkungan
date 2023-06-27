@@ -5,9 +5,10 @@ $id_blok = $_GET['id_blok'];
 $item = getById($id_blok);
 $data_komplek = getKomplek();
 if (isset($_POST['tambah'])) {
+    validasiEdit($_POST);
     $tambah = updateData($_POST);
     if ($tambah) {
-      redirectUrl(BASE_URL . '/main.php?page=blok&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=blok&status=success&message=Blok berhasil diupdate!');
     } else {
         $error = '
         <div class="alert alert-danger">
@@ -54,7 +55,7 @@ if (isset($_POST['tambah'])) {
                             </div>
 
                             <div class="form-group">
-                                <button name="tambah" class="btn btn-block btn-primary"><i class="fas fa-plus"></i>
+                                <button name="tambah" class="btn btn-block btn-primary"><i class="fas fa-save"></i>
                                     Update</button>
                             </div>
                         </form>

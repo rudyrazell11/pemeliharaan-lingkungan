@@ -82,3 +82,21 @@ function getByKomplek($id_komplek)
 
     return $data;
 }
+
+function validasiTambah($post)
+{
+    if(!$post['nama_blok'] || !$post['id_komplek'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=blok-create&status=error&message=Nama Blok dan Komplek tidak boleh kosong.');
+        exit;
+    }
+}
+
+function validasiEdit($post)
+{
+    if(!$post['nama_blok'] || !$post['id_komplek'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=blok-edit&id_blok='.$post['id_blok'].'&status=error&message=Nama Blok dan Komplek tidak boleh kosong.');
+        exit;
+    }
+}

@@ -6,7 +6,19 @@ require_once 'function/helper.php';
 $items = get();
 if (isset($_POST['delete'])) {
     $delete = deleteData($_POST['id_periode_iuran']);
-   redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success');
+   redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success&message=Periode Iuran berhasil dihapus!');
+}
+
+
+if(isset($_POST['submit_tagihan']))
+{
+    $id_periode_iuran = $_POST['id_periode_iuran_schedule'];
+    
+    $createSchedule = createPembayaranByAllUserByPeriodeIuran($id_periode_iuran);
+    if($createSchedule)
+    {
+        redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success&message=Schedule pembayaran periode berhasil dibuat!');
+    }
 }
 
 ?>
@@ -33,6 +45,7 @@ if (isset($_POST['delete'])) {
                                         <th>Nominal</th>
                                         <th>Bulan</th>
                                         <th>Tahun</th>
+                                        <th>Schedule</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -45,6 +58,16 @@ if (isset($_POST['delete'])) {
                                             <td>Rp <?= number_format($item['nominal']) ?></td>
                                             <td><?= getMonthName($item['bulan']) ?></td>
                                             <td><?= $item['tahun'] ?></td>
+                                            <td>
+                                               <?php if($item['is_schedule'] == 0) : ?>
+                                                <form action="" method="post">
+                                                    <input type="text" hidden name="id_periode_iuran_schedule" value="<?= $item['id_periode_iuran'] ?>">
+                                                    <button name="submit_tagihan" class="btn btn-secondary">Submit Schedule</button>
+                                                </form>
+                                                <?php else: ?>
+                                                    <button type="button" class="btn btn-success">Sudah</button>
+                                               <?php endif; ?>
+                                            </td>
                                             <td>
                                                 <a href="<?= BASE_URL . '/main.php?page=periode-iuran-edit&id_periode_iuran=' . $item['id_periode_iuran'] ?>" class="btn btn-info"><i class="fas fa-edit"></i> Edit</a>
                                                 <form action="" method="post" class="d-inline">

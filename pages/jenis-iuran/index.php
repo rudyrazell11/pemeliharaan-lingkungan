@@ -6,7 +6,7 @@ $items = get();
 
 if (isset($_POST['delete'])) {
     $delete = deleteData($_POST['id_jenis_iuran']);
-    redirectUrl(BASE_URL . '/main.php?page=jenis-iuran&status=success');
+    redirectUrl(BASE_URL . '/main.php?page=jenis-iuran&status=success&message=Jenis Iuran berhasil dihapus!');
 }
 
 ?>

@@ -56,3 +56,21 @@ function deleteData($id_jenis_iuran)
     global $koneksi;
     $item = $koneksi->query("DELETE FROM jenis_iuran WHERE id_jenis_iuran=$id_jenis_iuran");
 }
+
+function validasiTambah($post)
+{
+    if(!$post['nama_jenis'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=jenis-iuran-create&status=error&message=Jenis Iuran tidak boleh kosong.');
+        exit;
+    }
+}
+
+function validasiEdit($post)
+{
+    if(!$post['nama_jenis'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=jenis-iuran-edit&id_jenis_iuran='.$post['id_jenis_iuran'].'&status=error&message=Jenis Iuran tidak boleh kosong.');
+        exit;
+    }
+}

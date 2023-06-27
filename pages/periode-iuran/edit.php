@@ -7,9 +7,10 @@ $item = getById($id_periode_iuran);
 $data_bulan = getMonth();
 $data_jenis_iuran = getJenisIuran();
 if (isset($_POST['tambah'])) {
+    validasiEdit($_POST);
     $tambah = updateData($_POST);
     if ($tambah) {
-       redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success');
+       redirectUrl(BASE_URL . '/main.php?page=periode-iuran&status=success&message=Periode Iuran berhasil diupdate!');
     } else {
         $error = '
         <div class="alert alert-danger">
@@ -74,7 +75,7 @@ if (isset($_POST['tambah'])) {
                                 <input type="number" class="form-control" name="nominal" value="<?= $item['nominal'] ?>" id="nominal">
                             </div>
                             <div class="form-group">
-                                <button name="tambah" class="btn btn-block btn-primary"><i class="fas fa-plus"></i>
+                                <button name="tambah" class="btn btn-block btn-primary"><i class="fas fa-save"></i>
                                     Update</button>
                             </div>
                         </form>

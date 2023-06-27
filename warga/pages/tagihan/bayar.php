@@ -9,7 +9,9 @@ if (!isset($periode_iuran) || !$warga) {
     redirectUrl(BASE_URL . '/warga.php?page=tagihan');
 }
 $data_metode_pembayaran = getMetodePembayaran();
+$id_pembayaran = isset($_GET['id_pembayaran']) ? $_GET['id_pembayaran'] : NULL;
 if (isset($_POST['bayar'])) {
+    $_POST['id_pembayaran'] = $id_pembayaran;
     $bayar = bayarTagihan($_POST);
     if ($bayar) {
         redirectUrl(BASE_URL . '/warga.php?page=tagihan&status=success');

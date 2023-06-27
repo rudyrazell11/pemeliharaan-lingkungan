@@ -5,9 +5,10 @@ require_once 'function/helper.php';
 
 $data_komplek = getKomplek();
 if (isset($_POST['tambah'])) {
+    validasiTambah($_POST);
     $tambah = tambahData($_POST);
     if ($tambah) {
-       redirectUrl(BASE_URL . '/main.php?page=blok&status=success');
+       redirectUrl(BASE_URL . '/main.php?page=blok&status=success&message=Blok berhasil ditambahkan!');
     } else {
         $error = '
         <div class="alert alert-danger">

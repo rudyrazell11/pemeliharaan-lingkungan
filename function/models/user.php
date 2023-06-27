@@ -180,3 +180,59 @@ function updateProfile($post)
         return false;
     }
 }
+
+
+function validasiTambah($post)
+{
+    global $koneksi;
+    // cek apakah ada email di database
+    $cekUser = $koneksi->query("SELECT * FROM user WHERE email = '$post[email]'")->fetch_assoc();
+
+    if ($cekUser) {
+        redirectUrl(BASE_URL . '/main.php?page=user-create&status=error&message=User dengan email tersebut sudah terdaftar.');
+        exit;
+    } else {
+        // cek level
+        if ($post['level'] === 'admin') {
+            if (!$post['nama'] || !$post['email'] || !$post['level'] || !$post['password']) {
+
+                redirectUrl(BASE_URL . '/main.php?page=user-create&status=error&message=Nama, Email, Level dan Password tidak boleh kosong.');
+                exit;
+            }
+        }else{
+            if (!$post['nama'] || !$post['email'] || !$post['level'] || !$post['password'] || !$post['jenis_kelamin'] || !$post['tanggal_lahir'] || !$post['nomor_telepon'] || !$post['nomor_whatsapp'] || !$post['id_blok'] ) {
+
+                redirectUrl(BASE_URL . '/main.php?page=user-create&status=error&message=Nama, Email, Level, Jenis Kelamin, Tanggal Lahir, Nomor Telepon, Nomor Whatsapp, Blok dan Password tidak boleh kosong.');
+                exit;
+            }
+        }
+    }
+}
+
+
+function validasiEdit($post)
+{
+    global $koneksi;
+    // cek apakah ada email di database
+    $cekUser = $koneksi->query("SELECT * FROM user WHERE email = '$post[email]' AND id_user!=$post[id_user]")->fetch_assoc();
+
+    if ($cekUser) {
+        redirectUrl(BASE_URL . '/main.php?page=user-edit&id_user='.$post['id_user'].'&status=error&message=User dengan email tersebut sudah terdaftar.');
+        exit;
+    } else {
+        // cek level
+        if ($post['level'] === 'admin') {
+            if (!$post['nama'] || !$post['email'] || !$post['level'] || !$post['password']) {
+
+                redirectUrl(BASE_URL . '/main.php?page=user-edit&id_user='.$post['id_user'].'status=error&message=Nama, Email, Level dan Password tidak boleh kosong.');
+                exit;
+            }
+        }else{
+            if (!$post['nama'] || !$post['email']|| !$post['jenis_kelamin'] || !$post['tanggal_lahir'] || !$post['nomor_telepon'] || !$post['nomor_whatsapp'] || !$post['id_blok'] ) {
+
+                redirectUrl(BASE_URL . '/main.php?page=user-edit&id_user='.$post['id_user'].'status=error&message=Nama, Email, Level, Jenis Kelamin, Tanggal Lahir, Nomor Telepon, Nomor Whatsapp, Blok dan Password tidak boleh kosong.');
+                exit;
+            }
+        }
+    }
+}

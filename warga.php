@@ -101,6 +101,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     case 'tagihan':
                         include 'warga/pages/tagihan/index.php';
                         break;
+                    case 'tagihan-detail':
+                        include 'warga/pages/tagihan/detail.php';
+                        break;
                     case 'profile':
                         include 'warga/pages/profile.php';
                         break;

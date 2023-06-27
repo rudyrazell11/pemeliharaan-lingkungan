@@ -4,9 +4,10 @@ require_once 'function/models/komplek.php';
 
 
 if (isset($_POST['tambah'])) {
+    validasiTambah($_POST);
     $tambah = tambahData($_POST);
     if ($tambah) {
-      redirectUrl(BASE_URL . '/main.php?page=komplek&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=komplek&status=success&message=Komplek berhasil ditambah!');
     } else {
         $error = '
         <div class="alert alert-danger">

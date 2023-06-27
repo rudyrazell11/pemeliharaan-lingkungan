@@ -7,9 +7,10 @@ $data_warga = getWarga();
 $data_jenis_iuran = getJenisIuran();
 $data_metode_pembayaran = getMetodePembayaran();
 if (isset($_POST['tambah'])) {
+    validasiTambah($_POST);
     $tambah = tambahData($_POST);
     if ($tambah) {
-        redirectUrl(BASE_URL . '/main.php?page=pembayaran&status=success');
+        redirectUrl(BASE_URL . '/main.php?page=pembayaran&status=success&message=Pembayaran berhasil ditambahkan!');
     } else {
         $error = '
         <div class="alert alert-danger">

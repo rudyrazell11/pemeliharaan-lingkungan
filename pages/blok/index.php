@@ -5,7 +5,7 @@ require_once 'function/models/blok.php';
 $items = get();
 if (isset($_POST['delete'])) {
     $delete = deleteData($_POST['id_blok']);
-    redirectUrl(BASE_URL . '/main.php?page=blok&status=success');
+    redirectUrl(BASE_URL . '/main.php?page=blok&status=success&message=Blok berhasil dihapus!');
 }
 
 ?>

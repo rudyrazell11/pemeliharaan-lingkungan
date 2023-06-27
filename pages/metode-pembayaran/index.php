@@ -6,7 +6,7 @@ $items = get();
 
 if (isset($_POST['delete'])) {
     $delete = deleteData($_POST['id_metode_pembayaran']);
-   redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran&status=success');
+   redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran&status=success&message=Metode Pembayaran berhasil dihapus!');
 }
 
 ?>

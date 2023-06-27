@@ -1,34 +1,17 @@
 <?php
 
-require_once 'function/models/pembayaran.php';
+require_once 'warga/function/models/pembayaran.php';
 $id_pembayaran = $_GET['id_pembayaran'];
 $item = getById($id_pembayaran);
-$data_warga = getWarga();
-$data_jenis_iuran = getJenisIuran();
-$data_metode_pembayaran = getMetodePembayaran();
-if (isset($_POST['tambah'])) {
-    validasiEdit($_POST);
-    $tambah = updateData($_POST);
-    if ($tambah) {
-        redirectUrl(BASE_URL . '/main.php?page=pembayaran&status=success&message=Pembayaran berhasil diupdate!');
-    } else {
-        $error = '
-        <div class="alert alert-danger">
-         pembayaran Gagal di update.
-        </div>
-      ';
-    }
-}
 
 ?>
 
 <section class="section">
     <div class="section-header">
-        <h1>Edit pembayaran</h1>
+        <h1>Detail Tagihan</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="">Data pembayaran</a></div>
-            <div class="breadcrumb-item">Edit pembayaran</div>
+            <div class="breadcrumb-item">Detail Tagihan</div>
         </div>
     </div>
     <div class="section-body">
@@ -40,11 +23,12 @@ if (isset($_POST['tambah'])) {
                             <?= $error ?>
                         <?php endif; ?>
 
-                        <form action="" method="post">
-                            <input type="text" name="id_pembayaran" value="<?= $item['id_pembayaran'] ?>" hidden>
-                            <input type="text" name="id_warga" value="<?= $item['id_warga'] ?>" hidden>
+                        <form action="javascript:void(0)" method="post">
+                        <div class="form-group">
+                                <label for="">Detail Warga</label>
+                            </div>
                             <div class="form-group">
-                                <label for="id_warga">Warga</label>
+                                <label for="id_warga">Nama</label>
                                 <input type="text" class="form-control" value="<?= $item['nama_warga'] ?>" readonly>
                                 </select>
                             </div>
@@ -74,33 +58,53 @@ if (isset($_POST['tambah'])) {
                                     <input type="text" class="form-control" name="nomor_whatsapp" value="<?= $item['nomor_whatsapp'] ?>" id="nomor_whatsapp" disabled>
                                 </div>
                             </div>
+                            <hr>
                             <div class="form-group">
                                 <label for="">Periode Iuran</label>
-                                <input type="text" class="form-control" value="<?= getMonthName($item['bulan']) . ' - ' . $item['tahun'] . ' | Rp ' . number_format($item['nominal']) ?>" readonly>
-                                </select>
+                            </div>
+                            <div class="form-group row">
+                            <div class="col-md-6 mb-2">
+                                    <label for="nama_jenis">Jenis</label>
+                                    <input type="text" class="form-control" name="nama_jenis" value="<?= $item['nama_jenis'] ?>" id="nama_jenis" disabled>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="bulan">Bulan</label>
+                                    <input type="text" class="form-control" name="bulan" value="<?= getMonthName($item['bulan']) ?>" id="bulan" disabled>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="tahun">Tahun</label>
+                                    <input type="text" class="form-control" name="tahun" value="<?= $item['tahun'] ?>" id="tahun" disabled>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="nominal">Nominal</label>
+                                    <input type="text" class="form-control" name="nominal" value="Rp. <?= $item['nominal'] ?>" id="nominal" disabled>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="id_metode_pembayaran">Metode Pembayaran</label>
-                                <select name="id_metode_pembayaran" id="id_metode_pembayaran" class="form-control">
-                                    <option value="">Pilih Metode Pembayaran</option>
-                                    <?php foreach ($data_metode_pembayaran as $key => $metode_pembayaran) : ?>
-                                        <option <?php if ($metode_pembayaran['id_metode_pembayaran'] == $item['id_metode_pembayaran']) : ?> selected <?php endif; ?> value="<?= $metode_pembayaran['id_metode_pembayaran'] ?>"><?= $metode_pembayaran['nama'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <label for="">Metode Pembayaran</label>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-2">
+                                    <label for="nama">Nama</label>
+                                    <input type="text" class="form-control" name="nama" value="<?= $item['nama'] ?>" id="nama" disabled>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="nomor">Nomor</label>
+                                    <input type="text" class="form-control" name="nomor" value="<?= $item['nomor'] ?>" id="nomor" disabled>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="pemilik">Pemilik</label>
+                                    <input type="text" class="form-control" name="pemilik" value="<?= $item['pemilik'] ?>" id="pemilik" disabled>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="status">Status</label>
-                                <select name="status" id="status" class="form-control">
-                                    <option value="">Pilih Status</option>
-                                    <option <?php if ($item['status'] === 'Belum Bayar') : ?> selected <?php endif; ?> value="Belum Bayar">Belum Bayar</option>
-                                    <option <?php if ($item['status'] === 'Proses') : ?> selected <?php endif; ?> value="Proses">Proses</option>
-                                    <option <?php if ($item['status'] === 'Sudah Bayar') : ?> selected <?php endif; ?> value="Sudah Bayar">Sudah Bayar</option>
-                                    <option <?php if ($item['status'] === 'Gagal') : ?> selected <?php endif; ?> value="Gagal">Gagal</option>
+                                <input type="text" class="form-control" value="<?= $item['status'] ?>" readonly>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button name="tambah" class="btn btn-block btn-primary"><i class="fas fa-save"></i>
-                                    Update</button>
+                                <a href="<?= BASE_URL . '/warga.php?page=tagihan' ?>" class="btn btn-block btn-warning"><i class="fas fa-arrow-left"></i>
+                                    Kembali</a>
                             </div>
                         </form>
                     </div>
@@ -108,6 +112,5 @@ if (isset($_POST['tambah'])) {
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>

@@ -10,10 +10,10 @@ if(!$item)
    redirectUrl(BASE_URL. '/main.php?page=jenis-iuran');
 
 if (isset($_POST['update'])) {
-   
+    validasiEdit($_POST);
     $update = updateData($_POST);
     if ($update) {
-      redirectUrl(BASE_URL . '/main.php?page=jenis-iuran&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=jenis-iuran&status=success&message=Jenis Iuran berhasil diupdate!');
     } else {
         $error = '
         <div class="alert alert-danger">

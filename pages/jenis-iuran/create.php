@@ -4,9 +4,10 @@ require_once 'function/models/jenis_iuran.php';
 
 
 if (isset($_POST['tambah'])) {
+    validasiTambah($_POST);
     $tambah = tambahData($_POST);
     if ($tambah) {
-      redirectUrl(BASE_URL . '/main.php?page=jenis-iuran&status=success');
+      redirectUrl(BASE_URL . '/main.php?page=jenis-iuran&status=success&message=Jenis Iuran berhasil ditambahkan!');
     } else {
         $error = '
         <div class="alert alert-danger">

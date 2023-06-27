@@ -96,23 +96,22 @@ function periodeIuranDetail($id_periode_iuran)
 function bayarTagihan($post)
 {
     global $koneksi;
+    $id_pembayaran = $post['id_pembayaran'];
     $id_warga = htmlspecialchars($post['id_warga']);
     $id_periode_iuran = htmlspecialchars($post['id_periode_iuran']);
     $id_metode_pembayaran = htmlspecialchars($post['id_metode_pembayaran']);
     $status = 'Proses';
-    $kode_pembayaran = getKodePembayaranBaru();
-    $nominal = $post['nominal'];
-  
-    $insert = $koneksi->query("INSERT INTO `pembayaran` (`id_pembayaran`, `kode_pembayaran`, `id_warga`, `id_periode_iuran`, `id_metode_pembayaran`, `nominal`, `status`, `tanggal`) VALUES (NULL, '$kode_pembayaran', $id_warga, $id_periode_iuran, $id_metode_pembayaran, $nominal, '$status', CURRENT_TIMESTAMP)");
+    
+    $act = $koneksi->query("UPDATE `pembayaran` SET `id_metode_pembayaran` = '$id_metode_pembayaran', `status` = '$status' WHERE `pembayaran`.`id_pembayaran` = $id_pembayaran");
 
-    if($insert)
+    if($act)
     {
-        $insertId = true;
+        $act = true;
     }else{
-        $insertId = false;
+        $act = false;
     }
 
-    return $insertId;
+    return $act;
 }
 
 function getKodePembayaranBaru()

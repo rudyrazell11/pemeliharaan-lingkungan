@@ -11,9 +11,10 @@ if (!$item)
 
 if (isset($_POST['update'])) {
 
+    validasiEdit($_POST);
     $update = updateData($_POST);
     if ($update) {
-        redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran&status=success');
+        redirectUrl(BASE_URL . '/main.php?page=metode-pembayaran&status=success&message=Metode Pembayaran berhasil diupdate!');
     } else {
         $error = '
         <div class="alert alert-danger">

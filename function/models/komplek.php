@@ -54,3 +54,21 @@ function deleteData($id_komplek)
     global $koneksi;
     $item = $koneksi->query("DELETE FROM komplek WHERE id_komplek=$id_komplek");
 }
+
+function validasiTambah($post)
+{
+    if(!$post['nama_komplek'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=komplek-create&status=error&message=Nama Komplek tidak boleh kosong.');
+        exit;
+    }
+}
+
+function validasiEdit($post)
+{
+    if(!$post['nama_komplek'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=komplek-edit&id_komplek='.$post['id_komplek'].'&status=error&message=Nama Komplek tidak boleh kosong.');
+        exit;
+    }
+}

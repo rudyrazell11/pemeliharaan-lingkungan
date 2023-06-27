@@ -183,3 +183,21 @@ function getPeriodeById($id_periode_iuran)
     $item = $koneksi->query("SELECT * FROM periode_iuran WHERE id_periode_iuran=$id_periode_iuran")->fetch_assoc();
     return $item;
 }
+
+function validasiTambah($post)
+{
+    if(!$post['id_warga'] || !$post['id_periode_iuran'] || !$post['id_metode_pembayaran'] || !$post['status'] )
+    {
+        redirectUrl(BASE_URL . '/main.php?page=pembayaran-create&status=error&message=Warga, Periode Iuran, Metode Pembayaran tidak boleh kosong.');
+        exit;
+    }
+}
+
+function validasiEdit($post)
+{
+    if(!$post['id_metode_pembayaran'] || !$post['status'])
+    {
+        redirectUrl(BASE_URL . '/main.php?page=pembayaran-edit&id_pembayaran='.$post['id_pembayaran'].'&status=error&message=Metode Pembayaran, Status tidak boleh kosong.');
+        exit;
+    }
+}
