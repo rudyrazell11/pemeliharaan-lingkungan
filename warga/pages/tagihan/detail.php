@@ -10,7 +10,8 @@ $item = getById($id_pembayaran);
     <div class="section-header">
         <h1>Detail Tagihan</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/warga.php?page=dashboard' ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/warga.php?page=tagihan' ?>">Data Tagihan</a></div>
             <div class="breadcrumb-item">Detail Tagihan</div>
         </div>
     </div>

@@ -14,7 +14,7 @@ if (isset($_POST['delete'])) {
     <div class="section-header">
         <h1>Data Komplek</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
             <div class="breadcrumb-item">Data Komplek</div>
         </div>
     </div>

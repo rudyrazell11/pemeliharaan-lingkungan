@@ -12,9 +12,16 @@ $data_metode_pembayaran = getMetodePembayaran();
 $id_pembayaran = isset($_GET['id_pembayaran']) ? $_GET['id_pembayaran'] : NULL;
 if (isset($_POST['bayar'])) {
     $_POST['id_pembayaran'] = $id_pembayaran;
+
+    // validasi
+    if(!$_FILES['bukti_pembayaran']['name'] || !$_POST['id_metode_pembayaran'])
+    {
+        redirectUrl(BASE_URL . '/warga.php?page=bayar-iuran&id_periode_iuran='.$_POST['id_periode_iuran'].'&id_pembayaran='.$_GET['id_pembayaran'].'&status=error&message=Metode Pembayaran dan Bukti Pembayaran tidak boleh kosong.');
+    }
+
     $bayar = bayarTagihan($_POST);
     if ($bayar) {
-        redirectUrl(BASE_URL . '/warga.php?page=tagihan&status=success');
+        redirectUrl(BASE_URL . '/warga.php?page=tagihan&status=success&message=Tagihan berhasil di buat. Silahkan tunggu admin untuk verifikasi pembayaran.');
     } else {
         $error = '
         <div class="alert alert-danger">
@@ -30,8 +37,8 @@ if (isset($_POST['bayar'])) {
     <div class="section-header">
         <h1>Bayar Tagihan</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="">Data Pembayaran</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/warga.php?page=dashboard' ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/warga.php?page=tagihan' ?>">Data Tagihan</a></div>
             <div class="breadcrumb-item">Bayar Tagihan</div>
         </div>
     </div>
@@ -44,7 +51,7 @@ if (isset($_POST['bayar'])) {
                             <?= $error ?>
                         <?php endif; ?>
 
-                        <form action="" method="post">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <input type="text" value="<?= $warga['id_warga'] ?>" name="id_warga" hidden>
                             <input type="text" value="<?= $periode_iuran['id_periode_iuran'] ?>" name="id_periode_iuran" hidden>
                             <input type="text" value="<?= $periode_iuran['nominal'] ?>" name="nominal" hidden>
@@ -65,6 +72,11 @@ if (isset($_POST['bayar'])) {
                                     <?php foreach ($data_metode_pembayaran as $key => $metode_pembayaran) : ?>
                                         <option value="<?= $metode_pembayaran['id_metode_pembayaran'] ?>"><?= $metode_pembayaran['nama'] ?></option>
                                     <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="bukti_pembayaran">Bukti Pembayaran</label>
+                                <input type="file" class="form-control"  name="bukti_pembayaran">
                                 </select>
                             </div>
                             <div class="form-group">

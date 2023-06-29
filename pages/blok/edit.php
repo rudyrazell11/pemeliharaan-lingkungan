@@ -24,9 +24,11 @@ if (isset($_POST['tambah'])) {
     <div class="section-header">
         <h1>Edit Blok</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="">Data Blok</a></div>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=blok' ?>">Data Blok</a></div>
             <div class="breadcrumb-item">Edit Blok</div>
+        </div>
         </div>
     </div>
     <div class="section-body">

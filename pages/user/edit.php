@@ -33,8 +33,8 @@ if (isset($_POST['update'])) {
     <div class="section-header">
         <h1>Edit User</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="">Data User</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=user' ?>">Data User</a></div>
             <div class="breadcrumb-item">Edit User</div>
         </div>
     </div>
@@ -170,7 +170,7 @@ if (isset($_POST['update'])) {
         $('#form #id_blok').append(`<option value="">Pilih Blok</option>`)
         data_blok2.forEach(blok => {
             let selected = blok.id_blok == id_blok ? 'selected' : '';
-           
+
             $('#form #id_blok').append(`
                     <option ${selected} value="${blok.id_blok}">${blok.nama_blok}</option>
                 `)

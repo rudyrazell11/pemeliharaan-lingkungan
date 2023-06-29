@@ -13,7 +13,7 @@ if (isset($_POST['delete'])) {
 if(isset($_POST['submit_tagihan']))
 {
     $id_periode_iuran = $_POST['id_periode_iuran_schedule'];
-    
+
     $createSchedule = createPembayaranByAllUserByPeriodeIuran($id_periode_iuran);
     if($createSchedule)
     {
@@ -26,7 +26,7 @@ if(isset($_POST['submit_tagihan']))
     <div class="section-header">
         <h1>Data Periode Iuran</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
             <div class="breadcrumb-item">Data Periode Iuran</div>
         </div>
     </div>

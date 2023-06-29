@@ -104,6 +104,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     case 'laporan':
                         include 'pages/laporan/index.php';
                         break;
+                    case 'download-bukti-pembayaran':
+                        include 'pages/pembayaran/download-bukti.php';
+                        break;
                     default:
                         include 'pages/dashboard.php';
                         break;
@@ -142,35 +145,35 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
             $('#dTable').DataTable();
         })
     </script>
-    <?php if(isset($_GET['status'])) : ?>
-    <?php if($_GET['status'] === 'success') : ?>
-        <script>
-            $(function() {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: '<?= $_GET['message'] ?? 'Berhasil' ?>',
-                    showConfirmButton: true,
-                    timer: 2500
+    <?php if (isset($_GET['status'])) : ?>
+        <?php if ($_GET['status'] === 'success') : ?>
+            <script>
+                $(function() {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: '<?= $_GET['message'] ?? 'Berhasil' ?>',
+                        showConfirmButton: true,
+                        timer: 2500
+                    })
                 })
-            })
-        </script>
-    <?php endif; ?>
-    <?php if($_GET['status'] === 'error') : ?>
-        <script>
-            $(function() {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Gagal!',
-                    text: '<?= $_GET['message'] ?? 'Gagal' ?>',
-                    showConfirmButton: true,
-                    timer: 2500
+            </script>
+        <?php endif; ?>
+        <?php if ($_GET['status'] === 'error') : ?>
+            <script>
+                $(function() {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Gagal!',
+                        text: '<?= $_GET['message'] ?? 'Gagal' ?>',
+                        showConfirmButton: true,
+                        timer: 2500
+                    })
                 })
-            })
-        </script>
-    <?php endif; ?>
+            </script>
+        <?php endif; ?>
     <?php endif; ?>
 </body>
 

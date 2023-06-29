@@ -26,8 +26,8 @@ if (isset($_POST['tambah'])) {
     <div class="section-header">
         <h1>Edit Periode Iuran</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="{{ route('admin.Metode Pembayaran.index') }}">Data Periode Iuran</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=periode-iuran' ?>">Data Periode Iuran</a></div>
             <div class="breadcrumb-item">Edit Periode Iuran</div>
         </div>
     </div>

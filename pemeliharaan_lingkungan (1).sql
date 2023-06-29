@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 28, 2023 at 05:12 AM
--- Server version: 8.0.32-0ubuntu0.20.04.2
--- PHP Version: 8.1.18
+-- Generation Time: Jun 29, 2023 at 07:56 PM
+-- Server version: 5.7.39-0ubuntu0.18.04.2
+-- PHP Version: 8.1.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `blok` (
-  `id_blok` int NOT NULL,
-  `nama_blok` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `id_komplek` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_blok` int(11) NOT NULL,
+  `nama_blok` varchar(100) NOT NULL,
+  `id_komplek` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `blok`
@@ -48,9 +48,9 @@ INSERT INTO `blok` (`id_blok`, `nama_blok`, `id_komplek`) VALUES
 --
 
 CREATE TABLE `jenis_iuran` (
-  `id_jenis_iuran` int NOT NULL,
-  `nama_jenis` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_jenis_iuran` int(11) NOT NULL,
+  `nama_jenis` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `jenis_iuran`
@@ -68,9 +68,9 @@ INSERT INTO `jenis_iuran` (`id_jenis_iuran`, `nama_jenis`) VALUES
 --
 
 CREATE TABLE `komplek` (
-  `id_komplek` int NOT NULL,
-  `nama_komplek` varchar(200) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_komplek` int(11) NOT NULL,
+  `nama_komplek` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `komplek`
@@ -87,11 +87,11 @@ INSERT INTO `komplek` (`id_komplek`, `nama_komplek`) VALUES
 --
 
 CREATE TABLE `metode_pembayaran` (
-  `id_metode_pembayaran` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `pemilik` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_metode_pembayaran` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `nomor` varchar(100) DEFAULT NULL,
+  `pemilik` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `metode_pembayaran`
@@ -108,35 +108,40 @@ INSERT INTO `metode_pembayaran` (`id_metode_pembayaran`, `nama`, `nomor`, `pemil
 --
 
 CREATE TABLE `pembayaran` (
-  `id_pembayaran` int NOT NULL,
-  `kode_pembayaran` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `id_warga` int NOT NULL,
-  `id_periode_iuran` int NOT NULL,
-  `id_metode_pembayaran` int DEFAULT NULL,
-  `nominal` bigint NOT NULL,
-  `status` enum('Sudah Bayar','Belum Bayar','Gagal','Proses') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Belum Bayar',
-  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_pembayaran` int(11) NOT NULL,
+  `kode_pembayaran` varchar(50) NOT NULL,
+  `id_warga` int(11) NOT NULL,
+  `id_periode_iuran` int(11) NOT NULL,
+  `id_metode_pembayaran` int(11) DEFAULT NULL,
+  `nominal` bigint(20) NOT NULL,
+  `status` enum('Sudah Bayar','Belum Bayar','Gagal','Proses') NOT NULL DEFAULT 'Belum Bayar',
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bukti_pembayaran` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`id_pembayaran`, `kode_pembayaran`, `id_warga`, `id_periode_iuran`, `id_metode_pembayaran`, `nominal`, `status`, `tanggal`) VALUES
-(35, '1687903014', 16, 2, 1, 25000, 'Proses', '2023-06-28 04:56:54'),
-(36, '168790304914', 14, 2, NULL, 25000, 'Belum Bayar', '2023-06-28 04:57:29'),
-(37, '168790304915', 15, 2, NULL, 25000, 'Belum Bayar', '2023-06-28 04:57:29'),
-(38, '168790304917', 17, 2, NULL, 25000, 'Belum Bayar', '2023-06-28 04:57:29'),
-(39, '168790306314', 14, 8, NULL, 200000, 'Belum Bayar', '2023-06-28 04:57:43'),
-(40, '168790306315', 15, 8, NULL, 200000, 'Belum Bayar', '2023-06-28 04:57:43'),
-(41, '168790306316', 16, 8, 1, 200000, 'Proses', '2023-06-28 04:57:43'),
-(42, '168790306317', 17, 8, NULL, 200000, 'Belum Bayar', '2023-06-28 04:57:43'),
-(43, '1687903095', 16, 8, 5, 200000, 'Proses', '2023-06-28 04:58:15'),
-(44, '1687903571', 16, 8, 1, 200000, 'Sudah Bayar', '2023-06-28 05:06:11'),
-(45, '168790373114', 14, 9, NULL, 50000, 'Belum Bayar', '2023-06-28 05:08:51'),
-(46, '168790373115', 15, 9, NULL, 50000, 'Belum Bayar', '2023-06-28 05:08:51'),
-(47, '168790373116', 16, 9, NULL, 50000, 'Belum Bayar', '2023-06-28 05:08:51'),
-(48, '168790373117', 17, 9, NULL, 50000, 'Belum Bayar', '2023-06-28 05:08:51');
+INSERT INTO `pembayaran` (`id_pembayaran`, `kode_pembayaran`, `id_warga`, `id_periode_iuran`, `id_metode_pembayaran`, `nominal`, `status`, `tanggal`, `bukti_pembayaran`) VALUES
+(35, '1687903014', 16, 2, 1, 25000, 'Proses', '2023-06-28 04:56:54', NULL),
+(36, '168790304914', 14, 2, NULL, 25000, 'Belum Bayar', '2023-06-28 04:57:29', NULL),
+(37, '168790304915', 15, 2, NULL, 25000, 'Belum Bayar', '2023-06-28 04:57:29', NULL),
+(38, '168790304917', 17, 2, NULL, 25000, 'Belum Bayar', '2023-06-28 04:57:29', NULL),
+(39, '168790306314', 14, 8, NULL, 200000, 'Belum Bayar', '2023-06-28 04:57:43', NULL),
+(40, '168790306315', 15, 8, NULL, 200000, 'Belum Bayar', '2023-06-28 04:57:43', NULL),
+(41, '168790306316', 16, 8, 1, 200000, 'Proses', '2023-06-28 04:57:43', NULL),
+(42, '168790306317', 17, 8, NULL, 200000, 'Belum Bayar', '2023-06-28 04:57:43', NULL),
+(43, '1687903095', 16, 8, 5, 200000, 'Proses', '2023-06-28 04:58:15', NULL),
+(44, '1687903571', 16, 8, 1, 200000, 'Sudah Bayar', '2023-06-28 05:06:11', NULL),
+(45, '168790373114', 14, 9, NULL, 50000, 'Belum Bayar', '2023-06-28 05:08:51', NULL),
+(46, '168790373115', 15, 9, NULL, 50000, 'Belum Bayar', '2023-06-28 05:08:51', NULL),
+(47, '168790373116', 16, 9, 1, 50000, 'Proses', '2023-06-28 05:08:51', '649d74075b39c5.24860778.png'),
+(48, '168790373117', 17, 9, NULL, 50000, 'Belum Bayar', '2023-06-28 05:08:51', NULL),
+(49, '168804061814', 14, 10, NULL, 60000, 'Belum Bayar', '2023-06-29 19:10:18', NULL),
+(50, '168804061815', 15, 10, NULL, 60000, 'Belum Bayar', '2023-06-29 19:10:18', NULL),
+(51, '168804061816', 16, 10, 1, 60000, 'Proses', '2023-06-29 19:10:18', '649d75e9b814e8.65207601.png'),
+(52, '168804061817', 17, 10, NULL, 60000, 'Belum Bayar', '2023-06-29 19:10:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -145,13 +150,13 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `kode_pembayaran`, `id_warga`, `id_pe
 --
 
 CREATE TABLE `periode_iuran` (
-  `id_periode_iuran` int NOT NULL,
-  `bulan` int NOT NULL,
-  `tahun` int NOT NULL,
-  `id_jenis_iuran` int NOT NULL,
-  `nominal` bigint NOT NULL,
-  `is_schedule` int DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_periode_iuran` int(11) NOT NULL,
+  `bulan` int(11) NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `id_jenis_iuran` int(11) NOT NULL,
+  `nominal` bigint(20) NOT NULL,
+  `is_schedule` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `periode_iuran`
@@ -161,7 +166,7 @@ INSERT INTO `periode_iuran` (`id_periode_iuran`, `bulan`, `tahun`, `id_jenis_iur
 (2, 1, 2025, 2, 25000, 1),
 (8, 1, 2023, 1, 200000, 1),
 (9, 2, 2023, 1, 50000, 1),
-(10, 3, 2023, 1, 60000, 0),
+(10, 3, 2023, 1, 60000, 1),
 (11, 4, 2023, 1, 5000000, 0);
 
 -- --------------------------------------------------------
@@ -171,12 +176,12 @@ INSERT INTO `periode_iuran` (`id_periode_iuran`, `bulan`, `tahun`, `id_jenis_iur
 --
 
 CREATE TABLE `user` (
-  `id_user` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
-  `level` enum('admin','warga') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_user` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `level` enum('admin','warga') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
@@ -196,15 +201,15 @@ INSERT INTO `user` (`id_user`, `nama`, `email`, `password`, `level`) VALUES
 --
 
 CREATE TABLE `warga` (
-  `id_warga` int NOT NULL,
-  `nama_warga` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_kelamin` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_warga` int(11) NOT NULL,
+  `nama_warga` varchar(50) NOT NULL,
+  `jenis_kelamin` varchar(30) NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `nomor_telepon` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor_whatsapp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
-  `id_blok` int NOT NULL,
-  `id_user` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `nomor_telepon` varchar(30) NOT NULL,
+  `nomor_whatsapp` varchar(30) NOT NULL,
+  `id_blok` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `warga`
@@ -284,49 +289,49 @@ ALTER TABLE `warga`
 -- AUTO_INCREMENT for table `blok`
 --
 ALTER TABLE `blok`
-  MODIFY `id_blok` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_blok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `jenis_iuran`
 --
 ALTER TABLE `jenis_iuran`
-  MODIFY `id_jenis_iuran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_jenis_iuran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `komplek`
 --
 ALTER TABLE `komplek`
-  MODIFY `id_komplek` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_komplek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `metode_pembayaran`
 --
 ALTER TABLE `metode_pembayaran`
-  MODIFY `id_metode_pembayaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_metode_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `periode_iuran`
 --
 ALTER TABLE `periode_iuran`
-  MODIFY `id_periode_iuran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_periode_iuran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `warga`
 --
 ALTER TABLE `warga`
-  MODIFY `id_warga` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_warga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

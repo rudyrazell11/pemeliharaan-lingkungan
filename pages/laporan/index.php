@@ -12,8 +12,8 @@ $data_jenis_iuran = getJenisIuran();
     <div class="section-header">
         <h1>Rekap Laporan Pembayaran</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-            <div class="breadcrumb-item">Rekap Laporan Pembayaran</div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
+            <div class="breadcrumb-item">Laporan Pembayaran</div>
         </div>
     </div>
     <div class="section-body">

@@ -30,8 +30,8 @@ if (isset($_POST['update'])) {
     <div class="section-header">
         <h1>Edit Metode Pembayaran</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="">Data Metode Pembayaran</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=metode-pembayaran' ?>">Data Metode Pembayaran</a></div>
             <div class="breadcrumb-item">Edit Metode Pembayaran</div>
         </div>
     </div>

@@ -1,6 +1,12 @@
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-<title>Dashboard</title>
+<title>
+    <?php
+        $upper  = ucfirst($page ?? 'Dashboard');
+        $judul = str_replace('-',' ',$upper);
+        echo $judul;
+    ?>
+</title>
 
 <!-- General CSS Files -->
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/bs/css/bootstrap.min.css">

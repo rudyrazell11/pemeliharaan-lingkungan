@@ -23,8 +23,8 @@ if (isset($_POST['tambah'])) {
     <div class="section-header">
         <h1>Tambah Metode Pembayaran</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="{{ route('admin.Metode Pembayaran.index') }}">Data Metode Pembayaran</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=metode-pembayaran' ?>">Data Metode Pembayaran</a></div>
             <div class="breadcrumb-item">Tambah Metode Pembayaran</div>
         </div>
     </div>

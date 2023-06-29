@@ -39,7 +39,7 @@ function getTagihan()
     $warga = getDetail($_SESSION['id_user']);
     // $items = $koneksi->query("SELECT pi.*, ji.*, pmb.status,pmb.id_warga FROM periode_iuran pi LEFT JOIN jenis_iuran ji ON pi.id_jenis_iuran=ji.id_jenis_iuran LEFT JOIN pembayaran pmb ON pmb.id_periode_iuran = pi.id_periode_iuran WHERE pmb.status IS NULL ORDER BY pi.id_periode_iuran DESC");
     $data = [];
-    while($row = $items->fetch_assoc()){
+    while ($row = $items->fetch_assoc()) {
         $data[] = $row;
     }
 
@@ -51,27 +51,25 @@ function getPeriodeIuran()
     global $koneksi;
     $items = $koneksi->query("SELECT * FROM periode_iuran pi INNER JOIN jenis_iuran ji ON pi.id_jenis_iuran=ji.id_jenis_iuran");
     $data = [];
-    while($row = $items->fetch_assoc()){
+    while ($row = $items->fetch_assoc()) {
         $data[] = $row;
     }
 
     return $data;
 }
 
-function cekPeriodeIuran($id_user,$id_periode_iuran)
+function cekPeriodeIuran($id_user, $id_periode_iuran)
 {
     global $koneksi;
 
     $warga = getDetail($id_user);
     $item = $koneksi->query("SELECT * FROM pembayaran pmb INNER JOIN periode_iuran pi ON pi.id_periode_iuran=pmb.id_periode_iuran INNER JOIN jenis_iuran ji ON ji.id_jenis_iuran=pi.id_jenis_iuran WHERE pmb.id_warga = $warga[id_warga] AND pi.id_periode_iuran = $id_periode_iuran")->fetch_assoc();
 
-    if($item)
-    {
+    if ($item) {
         return $item;
-    }else{
+    } else {
         return false;
     }
-
 }
 
 function getMetodePembayaran()
@@ -79,7 +77,7 @@ function getMetodePembayaran()
     global $koneksi;
     $items = $koneksi->query("SELECT * FROM metode_pembayaran");
     $data = [];
-    while($row = $items->fetch_assoc()){
+    while ($row = $items->fetch_assoc()) {
         $data[] = $row;
     }
 
@@ -101,13 +99,57 @@ function bayarTagihan($post)
     $id_periode_iuran = htmlspecialchars($post['id_periode_iuran']);
     $id_metode_pembayaran = htmlspecialchars($post['id_metode_pembayaran']);
     $status = 'Proses';
-    
-    $act = $koneksi->query("UPDATE `pembayaran` SET `id_metode_pembayaran` = '$id_metode_pembayaran', `status` = '$status' WHERE `pembayaran`.`id_pembayaran` = $id_pembayaran");
 
-    if($act)
-    {
+    // upload bukti
+    $file = $_FILES['bukti_pembayaran'];
+
+    // Informasi file
+    $fileName = $file['name'];
+    $fileTmpName = $file['tmp_name'];
+    $fileSize = $file['size'];
+    $fileError = $file['error'];
+
+    // Memisahkan ekstensi file
+    $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+    // Ekstensi file yang diizinkan
+    $allowedExtensions = array('jpg', 'jpeg', 'png');
+
+    // Cek apakah ekstensi file diizinkan
+    if (in_array($fileExt, $allowedExtensions)) {
+        // Cek apakah ada error saat upload
+        if ($fileError === 0) {
+            // Cek ukuran file
+            if ($fileSize < 5000000) { // Contoh: 5MB (dalam byte)
+                // Nama unik untuk file
+                $newFileName = uniqid('', true) . '.' . $fileExt;
+                $uploadPath = 'uploads/' . $newFileName; // Ganti "uploads/" dengan direktori penyimpanan yang diinginkan
+
+                // var_dump($uploadPath);die();
+                // Pindahkan file yang diupload ke direktori tujuan
+                if (move_uploaded_file($fileTmpName, $uploadPath)) {
+
+                } else {
+                    echo "Gagal mengupload file.";
+
+                }
+            } else {
+                echo "Ukuran file terlalu besar.";
+
+            }
+        } else {
+            echo "Error saat upload file.";
+
+        }
+    } else {
+        echo "Ekstensi file tidak diizinkan.";
+    }
+
+    $act = $koneksi->query("UPDATE `pembayaran` SET `id_metode_pembayaran` = '$id_metode_pembayaran', `status` = '$status',`bukti_pembayaran` = '$newFileName'  WHERE `pembayaran`.`id_pembayaran` = $id_pembayaran");
+
+    if ($act) {
         $act = true;
-    }else{
+    } else {
         $act = false;
     }
 

@@ -13,7 +13,7 @@ if (isset($_POST['delete'])) {
     <div class="section-header">
         <h1>Data Pembayaran</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= BASE_URL . '/main.php?page=dashboard' ?>">Dashboard</a></div>
             <div class="breadcrumb-item">Data Pembayaran</div>
         </div>
     </div>
@@ -33,6 +33,7 @@ if (isset($_POST['delete'])) {
                                         <th>Nama Warga</th>
                                         <th>Jenis Iuran</th>
                                         <th>Nominal</th>
+                                        <th>Bukti</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -48,6 +49,13 @@ if (isset($_POST['delete'])) {
                                             <td><?= $item['nama_jenis'] ?></td>
                                             <td>Rp <?= number_format($item['nominal']) ?></td>
                                             <td>
+                                                <?php if ($item['bukti_pembayaran']) : ?>
+                                                    <a href="<?= BASE_URL . '/pages/pembayaran/download-bukti.php?bukti_pembayaran=' . $item['bukti_pembayaran'] ?>" class="btn btn-success">Download</a>
+                                                    <?php else: ?>
+                                                    -
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
                                                 <?php if ($item['status'] === 'Belum Bayar') : ?>
                                                     <span class="badge badge-info">Belum Bayar</span>
                                                 <?php elseif ($item['status'] === 'Sudah Bayar') : ?>
@@ -58,7 +66,7 @@ if (isset($_POST['delete'])) {
                                                     <span class="badge badge-danger">Gagal</span>
                                                 <?php endif; ?>
                                             </td>
-                                            <td>
+                                            <td style="min-width: 160px;">
                                                 <a href="<?= BASE_URL . '/main.php?page=pembayaran-edit&id_pembayaran=' . $item['id_pembayaran'] ?>" class="btn btn-info"><i class="fas fa-edit"></i> Edit</a>
                                                 <form action="" method="post" class="d-inline">
                                                     <input type="text" name="id_pembayaran" value="<?= $item['id_pembayaran'] ?>" hidden>

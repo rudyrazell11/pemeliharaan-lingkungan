@@ -17,7 +17,13 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Dashboard | User</title>
+    <title>
+        <?php
+        $upper  = ucfirst($page ?? 'Dashboard');
+        $judul = str_replace('-', ' ', $upper);
+        echo $judul;
+        ?>
+    </title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/bs/css/bootstrap.min.css">
@@ -148,6 +154,36 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
             $('#dTable').DataTable();
         })
     </script>
+    <?php if (isset($_GET['status'])) : ?>
+        <?php if ($_GET['status'] === 'success') : ?>
+            <script>
+                $(function() {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: '<?= $_GET['message'] ?? 'Berhasil' ?>',
+                        showConfirmButton: true,
+                        timer: 2500
+                    })
+                })
+            </script>
+        <?php endif; ?>
+        <?php if ($_GET['status'] === 'error') : ?>
+            <script>
+                $(function() {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Gagal!',
+                        text: '<?= $_GET['message'] ?? 'Gagal' ?>',
+                        showConfirmButton: true,
+                        timer: 2500
+                    })
+                })
+            </script>
+        <?php endif; ?>
+    <?php endif; ?>
 </body>
 
 </html>
